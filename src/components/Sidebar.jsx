@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom';
+import logo from "../assets/nyouta-logo2.jpg";
 
 const Sidebar = ( { isMobileMenuOpen, setIsMobileMenuOpen } ) => {
     const location = useLocation();
@@ -40,14 +41,14 @@ const Sidebar = ( { isMobileMenuOpen, setIsMobileMenuOpen } ) => {
   };
 
   return (
-    <div className={`bg-[#262D34] absolute ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-56" } lg:static lg:-translate-x-0 text-gray-400 group  space-y-6 py-7 px-2 h-full  lg:w-[5%]  hover:w-[20%] duration-300 transition `}>
+    <div className={`bg-amber-950 absolute ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-56" } lg:static lg:-translate-x-0 text-white group  space-y-6 py-7 px-2 h-full  lg:w-[5%]  hover:w-[20%] duration-300 transition-all ease-in`}>
       
       <div className="flex items-center justify-between px-4">
         
         <svg width="2em" height="2em" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
         </svg>
-        <span className="text-2xl font-extrabold lg:hidden group-hover:block ">Admin</span>
+        <span className="text-2xl font-extrabold lg:hidden group-hover:block ">Nyouta</span>
         
         <span className="ms-8 cursor-pointer lg:hidden group-hover:block"><i class={`fa-solid fa-caret-right transition duration-300 ${SideBar ? "rotate-180" : "rotate-0"}`} onClick={()=> sidebarHandler()}></i></span>
       </div>
@@ -112,7 +113,7 @@ const Sidebar = ( { isMobileMenuOpen, setIsMobileMenuOpen } ) => {
           className={` py-2.5 px-4 rounded transition duration-200 flex items-center gap-2 ${location.pathname === '/Orders' ? 'text-white ' : 'hover:text-white'}`}
           onClick={() =>{ setIsMobileMenuOpen(false); setClick(false)}}
         >
-        <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M4.083 11.894c.439-2.34.658-3.511 1.491-4.203C6.408 7 7.598 7 9.98 7h4.04c2.383 0 3.573 0 4.407.691c.833.692 1.052 1.862 1.491 4.203l.75 4c.617 3.292.926 4.938.026 6.022S18.12 23 14.771 23H9.23c-3.349 0-5.024 0-5.923-1.084c-.9-1.084-.591-2.73.026-6.022z" opacity=".5"></path><path fill="currentColor" d="M9.75 5.985a2.25 2.25 0 0 1 4.5 0v1c.566 0 1.062.002 1.5.015V5.985a3.75 3.75 0 1 0-7.5 0V7c.438-.013.934-.015 1.5-.015zm.128 9.765a2.251 2.251 0 0 0 4.245 0a.75.75 0 1 1 1.414.5a3.751 3.751 0 0 1-7.073 0a.75.75 0 0 1 1.414-.5"></path></svg>  <span className='lg:hidden group-hover:block'>Orderss</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M4.083 11.894c.439-2.34.658-3.511 1.491-4.203C6.408 7 7.598 7 9.98 7h4.04c2.383 0 3.573 0 4.407.691c.833.692 1.052 1.862 1.491 4.203l.75 4c.617 3.292.926 4.938.026 6.022S18.12 23 14.771 23H9.23c-3.349 0-5.024 0-5.923-1.084c-.9-1.084-.591-2.73.026-6.022z" opacity=".5"></path><path fill="currentColor" d="M9.75 5.985a2.25 2.25 0 0 1 4.5 0v1c.566 0 1.062.002 1.5.015V5.985a3.75 3.75 0 1 0-7.5 0V7c.438-.013.934-.015 1.5-.015zm.128 9.765a2.251 2.251 0 0 0 4.245 0a.75.75 0 1 1 1.414.5a3.751 3.751 0 0 1-7.073 0a.75.75 0 0 1 1.414-.5"></path></svg>  <span className='lg:hidden group-hover:block'>Orders</span>
         </Link>
       </nav>
       <div className="px-4 mt-auto lg:hidden group-hover:block">
