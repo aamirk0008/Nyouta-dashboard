@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import Sidebar from './Sidebar'
+import React from 'react'
 import Dashboard from './Dashboard'
 
 const DashboardLayout = () => {

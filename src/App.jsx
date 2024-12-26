@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react'
-import { Outlet, BrowserRouter as Route, Router, Routes, useLocation } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Dashboard from './components/Dashboard';
-import Products from './components/Products';
-import Users from './components/Users';
-import LoadingOverlay from './components/LoadingOverlay';
+import Navbar from './components/Navbar';
+import { Outlet } from 'react-router-dom';
+
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+
 
   useEffect(() => {
     // Simulate loading
@@ -21,12 +22,14 @@ function App() {
 
   return (
     <>
-    <div className='flex gap-8'>
-      <Sidebar isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen}/>
-      <div className='ml-72'>
-          <Outlet/>
-
+    <div className='flex w-[100vw] h-[100vh] bg-slate-200 overflow-hidden'>
+      <Sidebar isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
+      <div className="h-full w-full lg:w-[95%] ">
+        <Navbar setIsMobileMenuOpen={setIsMobileMenuOpen}/>
+        <div className=""><Outlet /></div>
+        
       </div>
+      
     </div>
    </>
     
