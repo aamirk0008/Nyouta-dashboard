@@ -98,7 +98,7 @@ const AddProducts = () => {
     };
     console.log("Product Data:", productData);
 
-    // You can send `productData` to your backend here.
+    // You can send `productData` to your backend here
   };
 
   const options = [

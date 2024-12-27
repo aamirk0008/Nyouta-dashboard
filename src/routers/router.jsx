@@ -6,7 +6,6 @@ import Users from "../components/Users";
 import Orders from "../components/Orders";
 import AddProducts from "../components/AddProducts";
 import EditProducts from "../components/EditProducts";
-import NewProducts from "../components/NewProducts";
 import ProductList from "../components/ProductLists";
 
 const router = createBrowserRouter([
