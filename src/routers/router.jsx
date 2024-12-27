@@ -39,10 +39,6 @@ const router = createBrowserRouter([
                 element: <EditProducts/>
             },
             {
-                path: '/products/new',
-                element: <NewProducts/>
-            },
-            {
                 path: '/products/list',
                 element: <ProductList/>
             }

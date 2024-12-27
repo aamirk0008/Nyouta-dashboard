@@ -86,13 +86,6 @@ const Sidebar = ( { isMobileMenuOpen, setIsMobileMenuOpen } ) => {
              <div className="h-full w-4"></div> Add Product
             </Link>
             <Link
-              to="/products/new"
-              className={` py-2 px-4 rounded transition duration-200 flex gap-2 ${location.pathname === '/products/new' ? 'text-white ' : 'hover:text-white'}`}
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-             <div className="h-full w-4"></div> New Product
-            </Link>
-            <Link
               to="/products/edit"
               className={` py-2 px-4 rounded transition duration-200 flex gap-2 ${location.pathname === '/products/edit' ? 'text-white ' : 'hover:text-white'}`}
               onClick={() => setIsMobileMenuOpen(false)}
