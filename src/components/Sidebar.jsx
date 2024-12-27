@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom';
-import logo from "../assets/nyouta-logo2.jpg";
+import logo from "../assets/nyouta-logo2.png";
 
 const Sidebar = ( { isMobileMenuOpen, setIsMobileMenuOpen } ) => {
     const location = useLocation();
@@ -43,14 +43,15 @@ const Sidebar = ( { isMobileMenuOpen, setIsMobileMenuOpen } ) => {
   return (
     <div className={`bg-amber-950 absolute ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-56" } lg:static lg:-translate-x-0 text-white group  space-y-6 py-7 px-2 h-full  lg:w-[5%]  hover:w-[20%] duration-300 transition-all ease-in`}>
       
-      <div className="flex items-center justify-between px-4">
+      <div className="flex flex-col items-center  justify-start px-4">
         
-        <svg width="2em" height="2em" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        {/* <svg width="2em" height="2em" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
-        </svg>
-        <span className="text-2xl font-extrabold lg:hidden group-hover:block ">Nyouta</span>
+        </svg> */}
+        <div className='h-8 min-w-16'> <img className='h-full w-full' src={logo} alt="" /> </div>
+        <span className="text-2xl  font-extrabold lg:hidden group-hover:block ">Nyouta</span>
         
-        <span className="ms-8 cursor-pointer lg:hidden group-hover:block"><i class={`fa-solid fa-caret-right transition duration-300 ${SideBar ? "rotate-180" : "rotate-0"}`} onClick={()=> sidebarHandler()}></i></span>
+       
       </div>
       <nav>
         <Link
@@ -84,13 +85,6 @@ const Sidebar = ( { isMobileMenuOpen, setIsMobileMenuOpen } ) => {
               onClick={() => setIsMobileMenuOpen(false)}
             >
              <div className="h-full w-4"></div> Add Product
-            </Link>
-            <Link
-              to="/products/edit"
-              className={` py-2 px-4 rounded transition duration-200 flex gap-2 ${location.pathname === '/products/edit' ? 'text-white ' : 'hover:text-white'}`}
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-             <div className="h-full w-4"></div> Edit Product
             </Link>
           </div>
         )}
