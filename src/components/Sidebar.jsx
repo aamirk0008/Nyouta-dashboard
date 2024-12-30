@@ -44,10 +44,6 @@ const Sidebar = ( { isMobileMenuOpen, setIsMobileMenuOpen } ) => {
     <div className={`bg-amber-950 absolute ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-56" } lg:static lg:-translate-x-0 text-white group  space-y-6 py-7 px-2 h-full  lg:w-[5%]  hover:w-[20%] duration-300 transition-all ease-in`}>
       
       <div className="flex flex-col items-center  justify-start px-4">
-        
-        {/* <svg width="2em" height="2em" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
-        </svg> */}
         <div className='h-8 min-w-16'> <img className='h-full w-full' src={logo} alt="" /> </div>
         <span className="text-2xl  font-extrabold lg:hidden group-hover:block ">Nyouta</span>
         
@@ -66,7 +62,7 @@ const Sidebar = ( { isMobileMenuOpen, setIsMobileMenuOpen } ) => {
           onClick={() => setClick(!Click)}
         >
           <div className=" flex gap-2 items-center"><svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.777 18.265v-7.97c0-.683 0-1.025-.132-1.326c-.131-.3-.378-.523-.871-.968l-.186-.167C3.532 6.882 3.004 6.405 3 5.716c-.004-.69.464-1.122 1.401-1.988q.214-.197.418-.362c.472-.378 1.138-.792 1.648-1.09a2.05 2.05 0 0 1 1.567-.205l.49.129c.389.102.727.353.949.703c.6.948 1.564 1.423 2.527 1.423V22c-1.467 0-2.724-.148-3.716-.33c-1.073-.198-1.61-.296-2.058-.858c-.45-.562-.45-1.224-.45-2.547" clip-rule="evenodd"></path><path fill="currentColor" d="M18.223 18.265v-7.97c0-.683 0-1.025.132-1.326c.131-.3.378-.523.871-.968l.186-.167c1.056-.952 1.584-1.429 1.588-2.118c.004-.69-.465-1.122-1.401-1.988a8 8 0 0 0-.418-.362c-.472-.378-1.138-.792-1.648-1.09a2.05 2.05 0 0 0-1.567-.205l-.49.129a1.6 1.6 0 0 0-.949.703c-.6.948-1.564 1.423-2.527 1.423V22c1.467 0 2.724-.148 3.716-.33c1.073-.198 1.61-.296 2.059-.858c.448-.562.448-1.224.448-2.547" opacity=".5"></path></svg> <span className="lg:hidden group-hover:block">Products</span></div>
-          <span className="ml-2 lg:hidden"><i className={`fa-solid fa-angle-down ${Click ? "rotate-180 " : "rotate-0"} duration-200 transition `}></i></span>
+          <span className="ml-2 lg:hidden group-hover:block"><i className={`fa-solid fa-angle-down ${Click ? "rotate-180 " : "rotate-0"} duration-200 transition `}></i></span>
         </div>
         {/* Dropdown Menu */}
         {Click && (
