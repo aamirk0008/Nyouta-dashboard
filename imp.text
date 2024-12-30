@@ -1,0 +1,12 @@
+ <div>
+          <label>Tags</label>
+          <Select
+            options={[
+              { value: "Electronics", label: "Electronics" },
+              { value: "Fashion", label: "Fashion" },
+            ]}
+            isMulti
+            value={selectedOptions}
+            onChange={setSelectedOptions}
+          />
+        </div>

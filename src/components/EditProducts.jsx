@@ -1,5 +1,6 @@
-import React, {  useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import Select from "react-select";
+import { useParams } from "react-router-dom";
 
 const data = {
   "Print Invitations": {
@@ -67,9 +68,13 @@ const EditProducts = () => {
     const [price, setPrice] = useState("");
     const [images, setImages] = useState([]);
     const [imageValid, setImagesValid] = useState(true);
+    const [product, setProduct] = useState({name:"", tag:"", price:"", image:"", category:"", subCategory:"", subSubCategory:"" });
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null); 
     
+const productId = useParams()
 
-    
+  console.log(productId.id);
   
     const handleFileSelect = (event) => {
       const files = Array.from(event.target.files);
@@ -93,18 +98,40 @@ const EditProducts = () => {
     const handleCreateProduct = (e) => {
       e.preventDefault();
       const productData = {
-        productName,
-        price,
-        tags: selectedOptions.map((option) => option.value),
-        category: selectedCategory,
-        subcategory: selectedSubcategory,
-        subSubcategory: subSubcategories.length ? subSubcategories[0] : "",
-        images,
+        productName: productName || product.name,
+        price: price || product.price,
+        tags: selectedOptions.map((option) => option.value) || product.tags,
+        category: selectedCategory || product.category,
+        subcategory: selectedSubcategory || product.subCategory,
+        subSubcategory:
+          subSubcategories.length ? subSubcategories[0] : product.subSubCategory,
+        images: images.length ? images : [product.image],
       };
+    
       console.log("Product Data:", productData);
-  
-      // You can send `productData` to your backend here
+    
+      // Send updated product data to your backend
+      // fetch(`http://localhost:5000/api/v1/products/products/${productId.id}`, {
+      //   method: "PUT",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(productData),
+      // })
+        // .then((response) => {
+        //   if (!response.ok) {
+        //     throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        //   }
+        //   return response.json();
+        // })
+        // .then((updatedProduct) => {
+        //   console.log("Updated Product:", updatedProduct);
+        // })
+        // .catch((error) => {
+        //   console.error("Error updating product:", error);
+        // });
     };
+    
 
   
     const options = [
@@ -117,6 +144,58 @@ const EditProducts = () => {
     const triggerFileInput = () => {
       document.getElementById("fileInput").click();
     };
+
+
+    useEffect(() => {
+      const fetchProductById = async () => {
+        try {
+          if (!productId || !productId.id) {
+            throw new Error("Product ID is undefined");
+          }
+    
+          const response = await fetch(
+            `http://localhost:5000/api/v1/products/products/${productId.id}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+    
+          if (!response.ok) {
+            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+          }
+    
+          const productData = await response.json();
+    
+          if (!productData) {
+            throw new Error("API returned null or undefined data");
+          }
+          console.log(productData);
+          
+          setProduct(productData); // Update with the product data
+          setLoading(false);
+        } catch (error) {
+          console.error("Error fetching product:", error.message);
+          setError(error.message); // Display error to the user
+          setLoading(false);
+        }
+      };
+    
+      fetchProductById();
+    }, [productId]);
+    
+
+
+
+    if (loading) {
+      return <p>Loading product details...</p>;
+    }
+  
+    if (error) {
+      return <p>Error fetching product: {error}</p>;
+    }
   
   return (
     <div className="px-4 sm:px-8 py-4">
@@ -160,7 +239,7 @@ const EditProducts = () => {
           <h1 className="font-semibold text-gray-600 mb-4">Edit Product Information</h1>
           <hr />
         </div>
-        <form className="w-full flex flex-col gap-4 text-gray-500" onSubmit={handleCreateProduct}>
+          <form className="w-full flex flex-col gap-4 text-gray-500" onSubmit={handleCreateProduct}>
           <div className="flex gap-4 flex-wrap justify-between items-center w-full">
             <div className="flex flex-col flex-auto">
               <label htmlFor="productname">Product Name</label>
