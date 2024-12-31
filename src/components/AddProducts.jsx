@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import Select from "react-select";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const data = {
   "Print Invitations": {
@@ -62,9 +65,11 @@ const AddProducts = () => {
   const [subcategories, setSubcategories] = useState([]);
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
   const [subSubcategories, setSubSubcategories] = useState([]);
+  const [selectedSubSubcategories, setSelectedSubSubcategories] = useState("");
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState("");
   const [images, setImages] = useState([]);
+  const route = useNavigate()
 
   const handleFileSelect = (event) => {
     const files = Array.from(event.target.files);
@@ -85,20 +90,67 @@ const AddProducts = () => {
     setSubSubcategories(data[selectedCategory][subcategory]);
   };
 
-  const handleCreateProduct = (e) => {
+  const handleSubsubcategoryChange = (e) => {
+    const selectedValues = Array.from(
+      e.target.selectedOptions,
+      (option) => option.value
+    );
+    setSelectedSubSubcategories(...selectedValues);
+  };
+
+  const handleAddImages = (files) => {
+    if (files) {
+      const newFiles = Array.from(files).map((file) => {
+        const preview = URL.createObjectURL(file);
+        return { ...file, preview };
+      });
+      setImages((prevImages) => [...prevImages, ...newFiles]);
+    }
+  };
+
+  const handleRemoveNewImage = (index) => {
+    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+  };
+
+  const handleCreateProduct = async(e) => {
     e.preventDefault();
     const productData = {
-      productName,
+      name : productName,
+      id:"test1",//testing
+      sku:"LUXURY-015",//testing
       price,
       tags: selectedOptions.map((option) => option.value),
       category: selectedCategory,
-      subcategory: selectedSubcategory,
-      subSubcategory: subSubcategories.length ? subSubcategories[0] : "",
-      images,
+      subCategory: selectedSubcategory,
+      subSubCategory: selectedSubSubcategories ? selectedSubSubcategories  : "",
+      image: images // for testing use "https://vestirio.com/cdn/shop/files/007.webp?v=1690795694&width=1800"
     };
     console.log("Product Data:", productData);
 
-    // You can send `productData` to your backend here
+    try {
+      const response = await fetch("http://localhost:5000/api/v1/products/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(productData),
+      });
+  
+      if (response.ok) {
+        const result = await response.json();
+        console.log("Product created successfully:", result);
+        toast.success("Product Added")
+      } else {
+        console.error("Failed to create product. Status:", response.status);
+        const errorData = await response.json();
+        console.error("Error details:", errorData);
+        toast.error("Something Wrong")
+        
+      }
+    } catch (error) {
+      console.error("Error creating product:", error);
+      toast.error("Something Wrong")
+    }
   };
 
   const options = [
@@ -114,41 +166,70 @@ const AddProducts = () => {
 
   return (
     <div className="px-4 sm:px-8 py-4">
-      <div className="w-full bg-white p-4 rounded-lg mb-4">
+      <div className="w-full bg-white p-4 rounded-lg mb-4 ">
         <div className="mb-4">
-          <h1 className="font-semibold text-gray-600 mb-4">Add Product Photo</h1>
+          <h1 className="font-semibold text-gray-600 mb-4">
+            Edit Product Photo
+          </h1>
           <hr />
         </div>
-
         <form
           onClick={triggerFileInput}
-          className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-6 hover:border-[#FF6C2F] cursor-pointer duration-300 transition"
+          className= "md:w-[400px] w-full text-xs md:text-sm  border-2 border-dashed border-gray-300 rounded-lg px-6 py-1 hover:border-[#FF6C2F] cursor-pointer duration-300 transition"
         >
-          <div className="text-center">
-            <i className="fa-solid fa-cloud-arrow-up text-4xl text-[#FF6C2F]"></i>
-            <h3 className="mt-4 text-lg font-medium text-gray-700">
+          <div className="text-center flex items-center gap-4 ">
+            <i className="fa-solid fa-cloud-arrow-up text-xl text-[#FF6C2F]"></i>
+            <h3 className=" font-medium text-gray-700">
               Drop your images here, or{" "}
               <span className="text-[#FF6C2F] font-semibold">click to browse</span>
             </h3>
-            <p className="text-sm text-gray-500">
-              1600 x 1200 (4:3) recommended. PNG, JPG, and GIF files are allowed.
-            </p>
+          
           </div>
           <input
             type="file"
             id="fileInput"
             className="hidden"
             multiple
-            onChange={handleFileSelect}
+            onChange={(e) => handleAddImages(e.target.files)}
           />
-        </form>
+        </form> 
+
+        <div className="previous-images">
+          <h3 className="font-semibold text-gray-500"> Images</h3>
+          <div className="flex items-center  ">
+          <div className="flex gap-4">
+            {images.map((file, index) => (
+              <div key={index} className="image-preview w-auto h-24 relative">
+                <button
+                  onClick={() => handleRemoveNewImage(index)}
+                  className="cut-button absolute bg-red-500 cursor-pointer   h-4 w-4 right-0 translate-x-1 -translate-y-1 flex justify-center items-center rounded-full"
+                >
+                 <i class="fa-solid fa-xmark text-white text-sm"></i>
+                </button>
+                <img
+                  src={file.preview}
+                  alt={`Uploaded ${index}`}
+                  className="w-full h-full  border"
+                />
+                
+                <p className="text-center text-sm mt-2">{file.name}</p>
+              </div>
+            ))}
+          </div>
+          </div>
+        </div>
       </div>
       <div className="w-full h-[450px] sm:h-60 bg-white p-4 rounded-lg overflow-y-scroll no-scrollbar">
         <div className="mb-4">
-          <h1 className="font-semibold text-gray-600 mb-4">Product Information</h1>
+          <h1 className="font-semibold text-gray-600 mb-4">
+            Product Information
+          </h1>
           <hr />
         </div>
-        <form className="w-full flex flex-col gap-4 text-gray-500" onSubmit={handleCreateProduct}>
+        <form
+          className="w-full flex flex-col gap-4 text-gray-500"
+          onSubmit={handleCreateProduct}
+        >
           <div className="flex gap-4 flex-wrap justify-between items-center w-full">
             <div className="flex flex-col flex-auto">
               <label htmlFor="productname">Product Name</label>
@@ -235,6 +316,8 @@ const AddProducts = () => {
                 id="subsubcategory"
                 className="border rounded-lg p-2 outline-none border-gray-300 hover:border-gray-400"
                 disabled={!subSubcategories.length}
+                value={selectedSubSubcategories}
+                onChange={handleSubsubcategoryChange}
               >
                 <option value="">Select Sub-Subcategory</option>
                 {subSubcategories.map((subSubcategory) => (
@@ -246,15 +329,23 @@ const AddProducts = () => {
             </div>
           </div>
           <div className="flex justify-end gap-4">
-            <button type="submit" className="py-2 px-4 rounded-lg text-white bg-[#FF6C2F]">
+            <button
+              type="submit"
+              className="py-2 px-4 rounded-lg text-white bg-[#FF6C2F]"
+            >
               Create Product
             </button>
-            <button type="button" className="py-2 px-4 rounded-lg border border-gray-600 text-gray-600">
+            <button
+              type="button"
+              className="py-2 px-4 rounded-lg border border-gray-600 text-gray-600"
+              onClick={()=>{route("/") }}
+            >
               Cancel
             </button>
           </div>
         </form>
       </div>
+      <ToastContainer/>
     </div>
   );
 };

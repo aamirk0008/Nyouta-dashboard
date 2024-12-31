@@ -1,42 +1,73 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 
-const data = [
-  {
-    name: "John",
-    created: "2023-01-15T10:30:00Z",
-    birth: "1995-06-21",
-    contact: "+1 555-1234"
-  },
-  {
-    name: "Jane",
-    created: "2023-05-10T14:45:00Z",
-    birth: "1988-11-03",
-    contact: "+1 555-5678"
-  },
-  {
-    name: "Alice",
-    created: "2023-08-20T09:00:00Z",
-    birth: "2000-03-12",
-    contact: "+1 555-9101"
-  },
-  {
-    name: "Bob",
-    created: "2023-10-05T18:15:00Z",
-    birth: "1992-07-19",
-    contact: "+1 555-1122"
-  },
-  {
-    name: "Emily",
-    created: "2023-12-01T16:20:00Z",
-    birth: "1998-09-25",
-    contact: "+1 555-3344"
-  }
-]
+// const data = [
+//   {
+//     name: "John",
+//     created: "2023-01-15T10:30:00Z",
+//     birth: "1995-06-21",
+//     contact: "+1 555-1234"
+//   },
+//   {
+//     name: "Jane",
+//     created: "2023-05-10T14:45:00Z",
+//     birth: "1988-11-03",
+//     contact: "+1 555-5678"
+//   },
+//   {
+//     name: "Alice",
+//     created: "2023-08-20T09:00:00Z",
+//     birth: "2000-03-12",
+//     contact: "+1 555-9101"
+//   },
+//   {
+//     name: "Bob",
+//     created: "2023-10-05T18:15:00Z",
+//     birth: "1992-07-19",
+//     contact: "+1 555-1122"
+//   },
+//   {
+//     name: "Emily",
+//     created: "2023-12-01T16:20:00Z",
+//     birth: "1998-09-25",
+//     contact: "+1 555-3344"
+//   }
+// ]
 
 
 
 const Users = () => {
+
+ const[UserData, setUserData] = useState([{name:"", gender:"", role:"" , email:""}])
+
+ useEffect(() => {
+  const fetchUserdata = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/v1/auth/getAllUsers', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} - ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log('Users:', data);
+      setUserData(data.users); // Assuming the API response has a `users` field
+    } catch (error) {
+      console.error('Error fetching users:', error.message);
+    }
+  };
+
+  fetchUserdata(); // Call the function when the component mounts
+}, []); 
+
+
+
+
   return (
     <div className="px-4 sm:px-8 py-4">
       <div className="bg-white rounded-lg overflow-hidden shadow-md">
@@ -63,21 +94,18 @@ const Users = () => {
                   Name
                 </th>
                 <th scope="col" className="px-4 py-3">
-                  Created
+                  Gender
                 </th>
                 <th scope="col" className="px-4 py-3">
-                  Birth
+                role
                 </th>
                 <th scope="col" className="px-4 py-3">
                   Contact
                 </th>
-                <th scope="col" className="px-4 py-3">
-                  Action
-                </th>
               </tr>
             </thead>
             <tbody>
-              {data.map((item, index) => (
+              {UserData.map((item, index) => (
                 <tr
                   key={index}
                   className="bg-white border-b hover:bg-gray-50"
@@ -88,14 +116,9 @@ const Users = () => {
                   >
                     {item.name}
                   </td>
-                  <td className="px-4 py-3">{item.created}</td>
-                  <td className="px-4 py-3">{item.birth}</td>
-                  <td className="px-4 py-3">{item.contact}</td>
-                  <td className="px-4 py-3 text-center">
-                    <button className="text-blue-500 hover:underline text-sm" onClick={()=>{handleEdit(item.id)}}>
-                      Edit
-                    </button>
-                  </td>
+                  <td className="px-4 py-3 " >{item.gender}</td>
+                  <td className="px-4 py-3" >{item.role}</td>
+                  <td className="px-4 py-3"  >{item.email}</td>
                 </tr>
               ))}
             </tbody>

@@ -115,9 +115,6 @@ const Orders = () => {
                 <th scope="col" className="px-4 py-3">
                   order status
                 </th>
-                <th scope="col" className="px-4 py-3">
-                  action
-                </th>
               </tr>
             </thead>
             <tbody>
@@ -135,11 +132,6 @@ const Orders = () => {
                   <td className="px-4 py-3">{item.paymentStatus}</td>
                   <td className="px-4 py-3">{item.items.length}</td>
                   <td className="px-4 py-3">{item.orderStatus}</td>
-                  <td className="px-4 py-3 text-center">
-                    <button className="text-blue-500 hover:underline text-sm" onClick={()=>{handleEdit(item.id)}}>
-                      Edit
-                    </button>
-                  </td>
                 </tr>
               ))}
             </tbody>
