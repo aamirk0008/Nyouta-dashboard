@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 
 
 const data = {
@@ -111,20 +112,45 @@ const AddProducts = () => {
     setImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
 
-  const handleCreateProduct = (e) => {
+  const handleCreateProduct = async(e) => {
     e.preventDefault();
     const productData = {
-      productName,
+      name : productName,
+      id:"test1",//testing
+      sku:"LUXURY-015",//testing
       price,
       tags: selectedOptions.map((option) => option.value),
       category: selectedCategory,
-      subcategory: selectedSubcategory,
-      subSubcategory: selectedSubSubcategories ? selectedSubSubcategories  : "",
-      images,
+      subCategory: selectedSubcategory,
+      subSubCategory: selectedSubSubcategories ? selectedSubSubcategories  : "",
+      image: images // for testing use "https://vestirio.com/cdn/shop/files/007.webp?v=1690795694&width=1800"
     };
     console.log("Product Data:", productData);
 
-    // You can send `productData` to your backend here
+    try {
+      const response = await fetch("http://localhost:5000/api/v1/products/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(productData),
+      });
+  
+      if (response.ok) {
+        const result = await response.json();
+        console.log("Product created successfully:", result);
+        toast.success("Product Added")
+      } else {
+        console.error("Failed to create product. Status:", response.status);
+        const errorData = await response.json();
+        console.error("Error details:", errorData);
+        toast.error("Something Wrong")
+        
+      }
+    } catch (error) {
+      console.error("Error creating product:", error);
+      toast.error("Something Wrong")
+    }
   };
 
   const options = [
@@ -319,6 +345,7 @@ const AddProducts = () => {
           </div>
         </form>
       </div>
+      <ToastContainer/>
     </div>
   );
 };
