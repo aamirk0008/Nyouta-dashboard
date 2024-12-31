@@ -152,7 +152,7 @@ const ProductList = () => {
             All Product List
           </h1>
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-2 sm:mt-0">
-            <button className="p-2 bg-[#E6612A] rounded-lg text-white text-sm">
+            <button className="p-2 bg-[#E6612A] rounded-lg text-white text-sm" onClick={()=>{navigate("/products/add")}}>
               Add Product
             </button>
             <select
