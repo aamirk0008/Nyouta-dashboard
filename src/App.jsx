@@ -25,6 +25,7 @@ function App() {
     <div className='flex w-[100vw] h-[100vh] bg-slate-200 '>
       <Sidebar isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
       <div className="h-full w-full lg:w-[95%] ">
+        <div className={`${isMobileMenuOpen ? "block" : "hidden"} bg-black  opacity-40 absolute h-full w-full z-40`} onClick={()=>{setIsMobileMenuOpen(false)}}></div>
         <Navbar setIsMobileMenuOpen={setIsMobileMenuOpen}/>
         <div className=""><Outlet /></div>
         

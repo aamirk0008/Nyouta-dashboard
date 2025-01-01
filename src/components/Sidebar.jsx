@@ -41,7 +41,7 @@ const Sidebar = ( { isMobileMenuOpen, setIsMobileMenuOpen } ) => {
   };
 
   return (
-    <div className={`bg-amber-950 absolute ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-56" } lg:static lg:-translate-x-0 text-white group  space-y-6 py-7 px-2 h-full  lg:w-[5%]  hover:w-[20%] duration-300 transition-all ease-in`}>
+    <div className={`bg-amber-950 absolute z-50 ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-56" } lg:static lg:-translate-x-0 text-white group  space-y-6 py-7 px-2 h-full  lg:w-[5%]  hover:w-[20%] duration-300 transition-all ease-in`}>
       
       <div className="flex flex-col items-center  justify-start px-4">
         <div className='h-8 min-w-16'> <img className='h-full w-full' src={logo} alt="" /> </div>

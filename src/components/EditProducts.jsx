@@ -65,12 +65,10 @@ const EditProducts = () => {
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
   const [subSubcategories, setSubSubcategories] = useState([]);
   const [selectedSubSubcategories, setSelectedSubSubcategories] = useState("");
-  const [productName, setProductName] = useState("");
   const [remainingImages, setRemainingImages] = useState([]);
   const [newImages, setNewImages] = useState([]);
   const [price, setPrice] = useState("");
   const [images, setImages] = useState([]);
-  const [imageValid, setImagesValid] = useState(true);
   const [product, setProduct] = useState({
     name: "",
     tag: "",
@@ -80,10 +78,12 @@ const EditProducts = () => {
     subCategory: "",
     subSubCategory: "",
   });
+  const [productName, setProductName] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const route = useNavigate()
   const productId = useParams();
+console.log(selectedOptions);
 
 
   const handleCategoryChange = (e) => {
@@ -114,6 +114,9 @@ const EditProducts = () => {
     { value: "Fashion", label: "Fashion" },
     { value: "Headphones", label: "Headphones" },
     { value: "Watches", label: "Watches" },
+    { value: "ceremony", label: "ceremony" },
+    { value: "modern", label: "modern" },
+    { value: "invitation", label: "invitation" },
   ];
 
   const triggerFileInput = () => {
@@ -146,9 +149,20 @@ const EditProducts = () => {
         if (!productData) {
           throw new Error("API returned null or undefined data");
         }
-        console.log(productData);
+        console.log("Selected Product Data :", productData);
+        const tagsArray = []
+        for (let index = 0; index < productData.tags.length; index++) {
+            tagsArray.push({value:productData.tags[index], label:productData.tags[index] })
+          
+        }
 
         setProduct(productData); // Update with the product data
+        setProductName(productData.name)
+        setPrice(productData.price)
+        setSelectedOptions(tagsArray)
+        setSelectedCategory(productData.category)
+        setSelectedSubcategory(productData.subCategory)
+        setSelectedSubSubcategories(productData.subSubCategory)
         setLoading(false);
         setRemainingImages(productData.image || []);
       } catch (error) {
@@ -167,21 +181,21 @@ const EditProducts = () => {
     setRemainingImages(updatedImages);
   };
 
-  const handleAddNewImages = (files) => {
-    if (files) {
-      const newFiles = Array.from(files).map((file) => {
-        const preview = URL.createObjectURL(file);
-        return { ...file, preview };
-      });
-      setNewImages((prevImages) => [...prevImages, ...newFiles]);
-    }
-  };
+ const handleAddNewImages = (files) => {
+  if (files) {
+    const previewLinks = Array.from(files).map((file) => URL.createObjectURL(file));
+    setNewImages((prevImages) => [...prevImages, ...previewLinks]);
+  }
+};
+
 
   const handleRemoveNewImage = (index) => {
     setNewImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
 
   const handleCreateProduct = (e) => {
+    const combinedImages = [...newImages, ...remainingImages];
+    setImages(combinedImages);
     e.preventDefault();
     const productData = {
       productName,
@@ -190,19 +204,14 @@ const EditProducts = () => {
       category: selectedCategory,
       subcategory: selectedSubcategory,
       subSubcategory: selectedSubSubcategories ? selectedSubSubcategories : "",
-      images,
+      image: combinedImages,
     };
     console.log("Product Data:", productData);
 
-    // You can send `productData` to your backend here
-  };
-
-  const handleCancel = () => {
-    // Reset or navigate away
+    // You can send `productData` to  backend here
   };
 
 
-  console.log(subSubcategories)
   if (loading) {
     return <p>Loading product details...</p>;
   }
@@ -215,7 +224,7 @@ const EditProducts = () => {
 
   return (
     <div className="px-4 sm:px-8 py-4  ">
-      <div className="w-full bg-white p-4 rounded-lg mb-4 ">
+      <div className="w-full bg-white p-4 rounded-lg mb-4 max-h-[250px] overflow-y-scroll no-scrollbar ">
         <div className="mb-4">
           <h1 className="font-semibold text-gray-600 mb-4">
             Edit Product Photo
@@ -278,7 +287,7 @@ const EditProducts = () => {
                  <i class="fa-solid fa-xmark text-white text-sm"></i>
                 </button>
                 <img
-                  src={file.preview}
+                  src={file}
                   alt={`Uploaded ${index}`}
                   className="w-full h-full  border"
                 />
