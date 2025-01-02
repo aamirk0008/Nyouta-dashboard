@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
@@ -62,6 +62,7 @@ const AddProducts = () => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [categories, setCategories] = useState(Object.keys(data));
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [ProductData, setProductData] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
   const [subSubcategories, setSubSubcategories] = useState([]);
@@ -70,6 +71,30 @@ const AddProducts = () => {
   const [price, setPrice] = useState("");
   const [images, setImages] = useState([]);
   const route = useNavigate()
+
+ useEffect(() => {
+  const fetchProductdata = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/v1/products/products', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} - ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      setProductData(data);
+    } catch (error) {
+      console.error('Error fetching users:', error.message);
+    }
+  };
+
+  fetchProductdata(); 
+  }, []);
 
   const handleFileSelect = (event) => {
     const files = Array.from(event.target.files);
@@ -113,7 +138,7 @@ const AddProducts = () => {
     e.preventDefault();
     const productData = {
       name : productName,
-      id:"test2",//testing
+      id: ProductData.length + 1,
       sku:"LUXURY-015",//testing
       price,
       tags: selectedOptions.map((option) => option.value),
@@ -124,30 +149,30 @@ const AddProducts = () => {
     };
     console.log("Product Data:", productData);
 
-    // try {
-    //   const response = await fetch("http://localhost:5000/api/v1/products/products", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(productData),
-    //   });
+    try {
+      const response = await fetch("http://localhost:5000/api/v1/products/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(productData),
+      });
   
-    //   if (response.ok) {
-    //     const result = await response.json();
-    //     console.log("Product created successfully:", result);
-    //     toast.success("Product Added")
-    //   } else {
-    //     console.error("Failed to create product. Status:", response.status);
-    //     const errorData = await response.json();
-    //     console.error("Error details:", errorData);
-    //     toast.error("Something Wrong")
+      if (response.ok) {
+        const result = await response.json();
+        console.log("Product created successfully:", result);
+        toast.success("Product Added")
+      } else {
+        console.error("Failed to create product. Status:", response.status);
+        const errorData = await response.json();
+        console.error("Error details:", errorData);
+        toast.error("Something Wrong")
         
-    //   }
-    // } catch (error) {
-    //   console.error("Error creating product:", error);
-    //   toast.error("Something Wrong")
-    // }
+      }
+    } catch (error) {
+      console.error("Error creating product:", error);
+      toast.error("Something Wrong")
+    }
   };
 
   const options = [

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const data = [
   {
@@ -69,23 +69,50 @@ const data = [
 
 
 const Orders = () => {
+
+  const [orders, setOrders] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchAllOrders = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/v1/order/get-all-orders");
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Failed to fetch orders");
+        }
+
+        const ordersData = await response.json();
+        setOrders(ordersData);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAllOrders();
+  }, []);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
+  
   return (
     <div className="px-4 sm:px-8 py-4">
       <div className="bg-white rounded-lg overflow-hidden shadow-md">
-        <div className="flex sm:flex-row items-center justify-between p-4">
+        <div className="flex sm:flex-row items-center  p-4">
           <h1 className="font-semibold text-lg text-gray-700 text-center sm:text-left">
             All Order List
           </h1>
-          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-2 sm:mt-0">
-            
-            <select
-              name="data"
-              id="data"
-              className="outline-none rounded-lg border px-2 py-1 text-sm"
-            >
-              <option value="this-month">This Month</option>
-            </select>
-          </div>
+          
         </div>
         <div className="overflow-x-auto overflow-y-auto max-h-[650px] lg:max-h-[400px] no-scrollbar">
           <table className="w-full text-sm text-left text-gray-500">
@@ -98,27 +125,21 @@ const Orders = () => {
                   Created at
                 </th>
                 <th scope="col" className="px-4 py-3">
-                  customer
+                payment status
                 </th>
                 <th scope="col" className="px-4 py-3">
-                  Priority
+                Payment Id
                 </th>
                 <th scope="col" className="px-4 py-3">
                   total
                 </th>
                 <th scope="col" className="px-4 py-3">
-                  payment status
-                </th>
-                <th scope="col" className="px-4 py-3">
-                  items
-                </th>
-                <th scope="col" className="px-4 py-3">
-                  order status
+                items
                 </th>
               </tr>
             </thead>
             <tbody>
-              {data.map((item, index) => (
+              {orders.map((item, index) => (
                 <tr
                   key={index}
                   className="bg-white border-b hover:bg-gray-50"
@@ -126,12 +147,10 @@ const Orders = () => {
                   
                   <td scope="row" className="px-4 py-3 font-medium text-gray-900 truncate">#{item.orderId}</td>
                   <td className="px-4 py-3">{item.createdAt}</td>
-                  <td className="px-4 py-3">{item.customer}</td>
-                  <td className="px-4 py-3">{item.priority}</td>
-                  <td className="px-4 py-3">{item.total}</td>
                   <td className="px-4 py-3">{item.paymentStatus}</td>
-                  <td className="px-4 py-3">{item.items.length}</td>
-                  <td className="px-4 py-3">{item.orderStatus}</td>
+                  <td className="px-4 py-3">{item.paymentId}</td>
+                  <td className="px-4 py-3">{item.totalPrice}</td>
+                  <td className="px-4 py-3">{item.products.length}</td>
                 </tr>
               ))}
             </tbody>

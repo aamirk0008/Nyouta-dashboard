@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 
 
 
@@ -138,6 +139,28 @@ const ProductList = () => {
   
 
 
+     const removeProduct = async (id) => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/v1/products/products/${id}`, {
+          method: "DELETE",
+        });
+  
+        if (!response.ok) {
+          toast.error("Failed to delete product")
+          throw new Error("Failed to delete product");
+          
+        }
+        toast.success("Product Deleted")
+        setTimeout(() => {
+          window.location.reload()
+        }, 1000);
+  
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+  
+
  const handleEdit = (id) => {
   console.log(id);
   navigate(`/products/edit/${id}`)
@@ -146,22 +169,16 @@ const ProductList = () => {
 
   return (
     <div className="px-4 sm:px-8 py-4">
-      <div className="bg-white rounded-lg overflow-hidden shadow-md">
+      <div className="bg-white sm:h-[500px] rounded-lg overflow-hidden shadow-md">
         <div className="flex sm:flex-row items-center justify-between p-4">
           <h1 className="font-semibold text-lg text-gray-700 text-center sm:text-left">
             All Product List
           </h1>
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-2 sm:mt-0">
-            <button className="p-2 bg-[#E6612A] rounded-lg text-white text-sm" onClick={()=>{navigate("/products/add")}}>
+            <button className="p-2 bg-[#E6612A] font-semibold border border-orange-600 hover:shadow-lg hover:-translate-y-0.5 duration-200 transition rounded-lg text-white text-sm" onClick={()=>{navigate("/products/add")}}>
               Add Product
             </button>
-            <select
-              name="data"
-              id="data"
-              className="outline-none rounded-lg border px-2 py-1 text-sm"
-            >
-              <option value="this-month">This Month</option>
-            </select>
+            
           </div>
         </div>
         <div className="overflow-x-auto overflow-y-auto max-h-[650px] lg:max-h-[400px] no-scrollbar">
@@ -179,6 +196,12 @@ const ProductList = () => {
                 </th>
                 <th scope="col" className="px-4 py-3">
                   Category
+                </th>
+                <th scope="col" className="px-4 py-3">
+                 Sub Category
+                </th>
+                <th scope="col" className="px-4 py-3">
+                 Sub SubCategory
                 </th>
                 <th scope="col" className="px-4 py-3">
                   Action
@@ -200,9 +223,14 @@ const ProductList = () => {
                   <td className="px-4 py-3">{item.price}</td>
                   <td className="px-4 py-3">{item.tags}</td>
                   <td className="px-4 py-3">{item.category}</td>
-                  <td className="px-4 py-3 text-center">
-                    <button className="text-blue-500 hover:underline text-sm" onClick={()=>{handleEdit(item._id)}}>
-                      Edit
+                  <td className="px-4 py-3">{item.subCategory}</td>
+                  <td className="px-4 py-3">{item.subSubCategory}</td>
+                  <td className="px-4 py-3 flex gap-2 ">
+                    <button className="p-1 px-2 flex justify-center items-center group  font-semibold border border-[#E6612A] hover:shadow-lg hover:-translate-y-0.5 duration-200 transition rounded-lg  text-white text-sm" onClick={()=>{handleEdit(item._id)}}>
+                    <i class="fa-solid fa-pencil text-sm group-hover:-rotate-45 text-[#E6612A] transition duration-300 "></i>
+                    </button>
+                    <button className="p-1 px-2 flex justify-center items-center group  font-semibold border border-gray-500 hover:shadow-lg hover:-translate-y-0.5 duration-200 transition rounded-lg  text-white text-sm" onClick={()=>{removeProduct(item._id)}}>
+                    <i class="fa-solid fa-trash-can text-sm text-gray-500 group-hover:rotate-45 transition duration-300  "></i>
                     </button>
                   </td>
                 </tr>
@@ -211,6 +239,7 @@ const ProductList = () => {
           </table>
         </div>
       </div>
+      <ToastContainer/>
     </div>
   )
 }
