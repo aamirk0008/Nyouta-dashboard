@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { useNavigate, useParams } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 
 const data = {
@@ -193,22 +195,48 @@ console.log(selectedOptions);
     setNewImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
 
-  const handleCreateProduct = (e) => {
+  const handleCreateProduct = async(e) => {
     const combinedImages = [...newImages, ...remainingImages];
     setImages(combinedImages);
     e.preventDefault();
     const productData = {
-      productName,
+      name:productName,
       price,
+      id: product.id,
+      sku: product.sku, 
       tags: selectedOptions.map((option) => option.value),
       category: selectedCategory,
-      subcategory: selectedSubcategory,
-      subSubcategory: selectedSubSubcategories ? selectedSubSubcategories : "",
+      subCategory: selectedSubcategory,
+      subSubCategory: selectedSubSubcategories ? selectedSubSubcategories : "",
       image: combinedImages,
     };
     console.log("Product Data:", productData);
 
-    // You can send `productData` to  backend here
+    try {
+      const response = await fetch(`http://localhost:5000/api/v1/products/products/${productId.id}`, {
+        method: "PUT", // Using PUT as it's an update operation
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(productData),
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        toast.error("Failed to update product")
+        throw new Error(errorData.message || "Failed to update product");
+      }
+  
+      const updatedProduct = await response.json();
+      console.log("Updated Product:", updatedProduct);
+      toast.success("Product Updated")
+  
+      // Handle the updated product data as needed (e.g., updating state, displaying a success message, etc.)
+    } catch (error) {
+      console.error("Error updating product:", error.message);
+      toast.error("Error in Updating")
+      // Handle the error (e.g., show an error message to the user)
+    }
   };
 
 
@@ -223,7 +251,7 @@ console.log(selectedOptions);
   console.log(newImages);
 
   return (
-    <div className="px-4 sm:px-8 py-4  ">
+    <div className="px-4 sm:px-8 py-1 sm:py-4  ">
       <div className="w-full bg-white p-4 rounded-lg mb-4 max-h-[250px] overflow-y-scroll no-scrollbar ">
         <div className="mb-4">
           <h1 className="font-semibold text-gray-600 mb-4">
@@ -299,7 +327,7 @@ console.log(selectedOptions);
           </div>
         </div>
       </div>
-      <div className="w-full h-[450px] sm:h-60 bg-white p-4 rounded-lg overflow-y-scroll no-scrollbar">
+      <div className="w-full h-[520px] sm:h-60 bg-white p-4 rounded-lg overflow-y-scroll no-scrollbar">
         <div className="mb-4">
           <h1 className="font-semibold text-gray-600 mb-4">Product Information</h1>
           <hr />
@@ -413,7 +441,7 @@ console.log(selectedOptions);
           </div>
         </form>
       </div>
-
+      <ToastContainer/>
     </div>
   );
 };

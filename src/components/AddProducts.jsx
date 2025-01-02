@@ -100,13 +100,10 @@ const AddProducts = () => {
 
   const handleAddImages = (files) => {
     if (files) {
-      const newFiles = Array.from(files).map((file) => {
-        const preview = URL.createObjectURL(file);
-        return { ...file, preview };
-      });
-      setImages((prevImages) => [...prevImages, ...newFiles]);
+      const previewLinks = Array.from(files).map((file) => URL.createObjectURL(file));
+      setImages((prevImages) => [...prevImages, ...previewLinks]);
     }
-  };
+  }
 
   const handleRemoveNewImage = (index) => {
     setImages((prevImages) => prevImages.filter((_, i) => i !== index));
@@ -116,7 +113,7 @@ const AddProducts = () => {
     e.preventDefault();
     const productData = {
       name : productName,
-      id:"test1",//testing
+      id:"test2",//testing
       sku:"LUXURY-015",//testing
       price,
       tags: selectedOptions.map((option) => option.value),
@@ -127,30 +124,30 @@ const AddProducts = () => {
     };
     console.log("Product Data:", productData);
 
-    try {
-      const response = await fetch("http://localhost:5000/api/v1/products/products", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(productData),
-      });
+    // try {
+    //   const response = await fetch("http://localhost:5000/api/v1/products/products", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(productData),
+    //   });
   
-      if (response.ok) {
-        const result = await response.json();
-        console.log("Product created successfully:", result);
-        toast.success("Product Added")
-      } else {
-        console.error("Failed to create product. Status:", response.status);
-        const errorData = await response.json();
-        console.error("Error details:", errorData);
-        toast.error("Something Wrong")
+    //   if (response.ok) {
+    //     const result = await response.json();
+    //     console.log("Product created successfully:", result);
+    //     toast.success("Product Added")
+    //   } else {
+    //     console.error("Failed to create product. Status:", response.status);
+    //     const errorData = await response.json();
+    //     console.error("Error details:", errorData);
+    //     toast.error("Something Wrong")
         
-      }
-    } catch (error) {
-      console.error("Error creating product:", error);
-      toast.error("Something Wrong")
-    }
+    //   }
+    // } catch (error) {
+    //   console.error("Error creating product:", error);
+    //   toast.error("Something Wrong")
+    // }
   };
 
   const options = [
@@ -165,8 +162,8 @@ const AddProducts = () => {
   };
 
   return (
-    <div className="px-4 sm:px-8 py-4">
-      <div className="w-full bg-white p-4 rounded-lg mb-4 ">
+    <div className="px-4 sm:px-8 py-1 sm:py-1">
+      <div className="w-full bg-white max-h-[245px] sm:max-h-[220px] p-4 rounded-lg mb-4 overflow-y-scroll no-scrollbar ">
         <div className="mb-4">
           <h1 className="font-semibold text-gray-600 mb-4">
             Edit Product Photo
@@ -207,7 +204,7 @@ const AddProducts = () => {
                  <i class="fa-solid fa-xmark text-white text-sm"></i>
                 </button>
                 <img
-                  src={file.preview}
+                  src={file}
                   alt={`Uploaded ${index}`}
                   className="w-full h-full  border"
                 />
@@ -219,7 +216,7 @@ const AddProducts = () => {
           </div>
         </div>
       </div>
-      <div className="w-full h-[450px] sm:h-60 bg-white p-4 rounded-lg overflow-y-scroll no-scrollbar">
+      <div className="w-full sm:h-60 md:h-[300px] bg-white p-4 rounded-lg overflow-y-scroll no-scrollbar">
         <div className="mb-4">
           <h1 className="font-semibold text-gray-600 mb-4">
             Product Information
