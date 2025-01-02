@@ -7,6 +7,7 @@ import Orders from "../components/Orders";
 import AddProducts from "../components/AddProducts";
 import EditProducts from "../components/EditProducts";
 import ProductList from "../components/ProductLists";
+import Login from "../components/Login"
 
 const router = createBrowserRouter([
     {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
             {
                 path: '/products/list',
                 element: <ProductList/>
+            },
+            {
+                path: '/admin/login',
+                element: <Login/>
             }
         ]
     }

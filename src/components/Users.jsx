@@ -65,31 +65,26 @@ const Users = () => {
   fetchUserdata(); // Call the function when the component mounts
 }, []); 
 
+console.log(UserData);
 
 
 
   return (
     <div className="px-4 sm:px-8 py-4">
       <div className="bg-white rounded-lg overflow-hidden shadow-md">
-        <div className="flex sm:flex-row items-center justify-between p-4">
+        <div className="flex sm:flex-row items-center  p-4">
           <h1 className="font-semibold text-lg text-gray-700 text-center sm:text-left">
             All User List
           </h1>
-          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-2 sm:mt-0">
-            
-            <select
-              name="data"
-              id="data"
-              className="outline-none rounded-lg border px-2 py-1 text-sm"
-            >
-              <option value="this-month">This Month</option>
-            </select>
-          </div>
+          
         </div>
         <div className="overflow-x-auto overflow-y-auto max-h-[650px] lg:max-h-[400px] no-scrollbar">
           <table className="w-full text-sm text-left text-gray-500">
-            <thead className="text-xs text-gray-700 bg-gray-100 uppercase border-b">
+            <thead className="text-xs text-gray-700 bg-gray-100  border-b">
               <tr>
+              <th scope="col" className="px-4 py-3">
+                  Profile
+                </th>
                 <th scope="col" className="px-4 py-3">
                   Name
                 </th>
@@ -97,10 +92,13 @@ const Users = () => {
                   Gender
                 </th>
                 <th scope="col" className="px-4 py-3">
-                role
+                Contact
                 </th>
                 <th scope="col" className="px-4 py-3">
-                  Contact
+                  Verified
+                </th>
+                <th scope="col" className="px-4 py-3">
+                Website Created
                 </th>
               </tr>
             </thead>
@@ -111,14 +109,20 @@ const Users = () => {
                   className="bg-white border-b hover:bg-gray-50"
                 >
                   <td
+                    className="px-4 py-3 "
+                  >
+                    <div className="h-10 w-10 rounded-full overflow-hidden"><img className='h-full w-full' src={item.avatar} alt="Profile" /></div>
+                  </td>
+                  <td
                     scope="row"
                     className="px-4 py-3 font-medium text-gray-900 truncate"
                   >
                     {item.name}
                   </td>
                   <td className="px-4 py-3 " >{item.gender}</td>
-                  <td className="px-4 py-3" >{item.role}</td>
-                  <td className="px-4 py-3"  >{item.email}</td>
+                  <td className="px-4 py-3" >{item.email}</td>
+                  <td className="px-4 py-3"  >{item.isVerified ? "true" : "false" }</td>
+                  <td className="px-4 py-3"  >{item.isWebsiteCreated ? "true" : "false" }</td>
                 </tr>
               ))}
             </tbody>

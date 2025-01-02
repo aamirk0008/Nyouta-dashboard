@@ -202,7 +202,7 @@ console.log(selectedOptions);
     const productData = {
       name:productName,
       price,
-      id: product.id,
+      id: product.length + 1,
       sku: product.sku, 
       tags: selectedOptions.map((option) => option.value),
       category: selectedCategory,
@@ -239,6 +239,28 @@ console.log(selectedOptions);
     }
   };
 
+   // Remove product function
+   const removeProduct = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/v1/products/products/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        toast.error("Failed to delete product")
+        throw new Error("Failed to delete product");
+        
+      }
+      toast.success("Product Deleted")
+      setTimeout(() => {
+        route("/products/list")
+      }, 1000);
+
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
 
   if (loading) {
     return <p>Loading product details...</p>;
@@ -254,10 +276,15 @@ console.log(selectedOptions);
     <div className="px-4 sm:px-8 py-1 sm:py-4  ">
       <div className="w-full bg-white p-4 rounded-lg mb-4 max-h-[250px] overflow-y-scroll no-scrollbar ">
         <div className="mb-4">
-          <h1 className="font-semibold text-gray-600 mb-4">
+          <div className="flex justify-between items-center  ">
+          <h1 className="font-semibold text-gray-600  ">
             Edit Product Photo
           </h1>
-          <hr />
+          <div className="py-1 px-4 bg-red-500  text-white hover:bg-red-400 hover:shadow-lg flex items-center group gap-2  rounded-xl cursor-pointer border duration-300 transition font-semibold border-red-700  " onClick={()=>{removeProduct(productId.id)}}>
+            Remove <span className=""><i class="fa-solid fa-trash-can text-sm text-white group-hover:rotate-45 transition duration-300  "></i></span>
+          </div>
+          </div>
+          <hr className="mt-2" />
         </div>
         <form
           onClick={triggerFileInput}
