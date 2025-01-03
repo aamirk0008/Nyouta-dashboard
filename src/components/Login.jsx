@@ -1,16 +1,29 @@
 import React, { useState } from "react";
 import logo from "../assets/nyouta-logo2.png";
+import { ToastContainer, toast } from 'react-toastify';
 
-const AdminLogin = () => {
+const AdminLogin = ({setIsLogin}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
+
     e.preventDefault();
-    setError("");
-    setLoading(true);
+
+    if(email === "admin@gmail.com" && password === "1234"){
+    setIsLogin(false)
+    }
+    else{
+      if(email !== "admin@gmail.com"){
+        toast.error("Wrong Email")
+      }
+      else{
+        toast.error("Wrong Password")
+      }
+    }
+   
+    
+    
 
     const handleGoogleLogin = () =>{
 
@@ -46,26 +59,26 @@ const AdminLogin = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center min-h-screen bg-gradient-to-r from-slate-200 to-white px-4">
-  <div className="w-full md:w-[60%] flex flex-col md:flex-row gap-4 items-center justify-center mb-8 md:mb-0">
-    <div className="h-16 md:h-24">
+    <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen bg-gradient-to-r from-slate-200 to-white px-4">
+  <div className="w-full lg:w-[60%] flex flex-col lg:flex-row gap-4 items-center justify-center mb-8 lg:mb-0">
+    <div className="h-16 lg:h-24">
       <img className="h-full" src={logo} alt="" />
     </div>
-    <h1 className="text-4xl md:text-6xl font-bold mb-4 font-primaryFont text-center md:text-left">
+    <h1 className="text-4xl lg:text-6xl font-bold mb-4 font-avalonN text-center lg:text-left">
       Nyouta
     </h1>
-    <div className="h-0.5 ms-24 hidden md:block w-full md:w-0.5 md:h-[30rem] bg-[#B98230]"></div>
+    <div className="h-0.5 ms-24 hidden lg:block w-full lg:w-0.5 lg:h-[30rem] bg-[#B98230]"></div>
   </div>
 
-  <div className="w-full md:w-[40%] max-w-md h-auto md:h-[30rem] p-8 flex flex-col px-16 justify-center bg-gradient-to-tl from-slate-100 to-white shadow-2xl rounded-lg">
-    <h1 className="text-2xl md:text-4xl font-bold text-gray-700 text-center mb-8">
+  <div className="w-full lg:w-[40%] max-w-lg h-auto lg:h-[30rem] p-8 flex flex-col px-16 justify-center bg-gradient-to-tl from-slate-100 to-white shadow-2xl rounded-lg">
+    <h1 className="text-2xl lg:text-4xl font-bold text-gray-700 font-avalonN text-center mb-8">
       Admin Login
     </h1>
     <form onSubmit={handleLogin}>
       <div className="mb-4">
         <label
           htmlFor="email"
-          className="block text-sm font-medium text-gray-600"
+          className="block text-sm font-medium text-gray-600 font-avalonN"
         >
           Email
         </label>
@@ -76,13 +89,13 @@ const AdminLogin = () => {
           onChange={(e) => setEmail(e.target.value)}
           required
           placeholder="Enter your email"
-          className="w-full px-4 py-2 mt-2 text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+          className="w-full px-4 py-2 mt-2 text-gray-700 bg-gray-100 border font-avalonN border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
         />
       </div>
       <div className="mb-4">
         <label
           htmlFor="password"
-          className="block text-sm font-medium text-gray-600"
+          className="block text-sm font-medium text-gray-600 font-avalonN"
         >
           Password
         </label>
@@ -93,25 +106,22 @@ const AdminLogin = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
           placeholder="Enter your password"
-          className="w-full px-4 py-2 mt-2 text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+          className="w-full px-4 py-2 mt-2 text-gray-700 bg-gray-100 border font-avalonN border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
         />
       </div>
-      {error && <p className="text-sm text-red-500 mb-4">{error}</p>}
+      
       <button
         type="submit"
-        disabled={loading}
-        className={`w-full py-2 px-4 bg-[#B98230] text-white font-semibold rounded-lg focus:outline-none focus:ring focus:ring-blue-300 hover:bg-[#F4EAD1] hover:text-gray-500 hover:shadow-lg duration-200 transition ${
-          loading && "opacity-70 cursor-not-allowed"
-        }`}
+        className={`w-full py-2 px-4 bg-[#B98230] text-white font-avalonB font-semibold rounded-lg focus:outline-none focus:ring focus:ring-blue-300 hover:bg-[#F4EAD1] hover:text-gray-500 hover:shadow-lg duration-200 transition`}
       >
-        {loading ? "Logging in..." : "Login"}
+         Login
       </button>
     </form>
 
     {/* Google Login */}
     <div className="mt-6">
       <button
-        className="flex items-center justify-center w-full py-2 px-4 bg-white text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring focus:ring-blue-300 transition duration-200"
+        className="flex items-center justify-center w-full py-2 px-4 font-avalonB bg-white text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring focus:ring-blue-300 transition duration-200"
       >
         <i className="fa-brands fa-google w-5 h-5 mr-2"></i>
         Login with Google
@@ -122,12 +132,13 @@ const AdminLogin = () => {
     <div className="mt-4 text-center">
       <a
         href="/forgot-password"
-        className="text-sm text-blue-600 hover:underline"
+        className="text-sm text-blue-600 font-avalonB hover:underline"
       >
         Forgot Password?
       </a>
     </div>
   </div>
+  <ToastContainer/>
 </div>
 
 

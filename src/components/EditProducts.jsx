@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
+import ErrorComponent from './ErrorComponent';
 
 
 
@@ -165,11 +166,13 @@ console.log(selectedOptions);
         setSelectedCategory(productData.category)
         setSelectedSubcategory(productData.subCategory)
         setSelectedSubSubcategories(productData.subSubCategory)
-        setLoading(false);
         setRemainingImages(productData.image || []);
       } catch (error) {
         console.error("Error fetching product:", error.message);
         setError(error.message); // Display error to the user
+        
+      }
+      finally{
         setLoading(false);
       }
     };
@@ -262,12 +265,117 @@ console.log(selectedOptions);
   };
 
 
+
+
   if (loading) {
-    return <p>Loading product details...</p>;
+    return ( <div className="px-4 sm:px-8 py-1 sm:py-4  ">
+      <div className="w-full bg-white p-4 rounded-lg mb-4 max-h-[250px] overflow-y-scroll no-scrollbar ">
+        <div className="mb-4">
+          <div className="flex justify-between items-center  ">
+          <h1 className="font-semibold text-gray-600 font-avalonN ">
+            Edit Product Photo
+          </h1>
+          <div className="py-1 px-4 bg-red-500  text-white font-avalonB hover:bg-red-400 hover:shadow-lg flex items-center group gap-2  rounded-xl cursor-pointer border duration-300 transition font-semibold border-red-700  " onClick={()=>{removeProduct(productId.id)}}>
+            Remove <span className=""><i class="fa-solid fa-trash-can text-sm text-white group-hover:rotate-45 transition duration-300  "></i></span>
+          </div>
+          </div>
+          <hr className="mt-2" />
+        </div>
+        <form
+          className= "md:w-[400px] w-full text-xs md:text-sm  border-2 border-dashed border-gray-300 rounded-lg px-6 py-1 hover:border-[#FF6C2F] cursor-pointer duration-300 transition"
+        >
+          <div className="text-center flex items-center gap-4 ">
+            <i className="fa-solid fa-cloud-arrow-up text-xl text-[#FF6C2F]"></i>
+            <h3 className=" font-medium text-gray-700 font-avalonB">
+              Drop your images here, or{" "}
+              <span className="text-[#FF6C2F] font-semibold font-avalonB">click to browse</span>
+            </h3>
+          
+          </div>
+          <input
+            type="file"
+            id="fileInput"
+            className="hidden"
+            multiple
+          />
+        </form> 
+
+        <div className="previous-images">
+          <h3 className="font-semibold text-gray-500 font-avalonN"> Images</h3>
+          <div className="flex items-center flex-wrap gap-4">
+            <div className="flex gap-4 animate-pulse">           
+              <div
+                className="image-container w-20 h-24  rounded-lg  relative "
+              >
+                
+                <div
+                  className="w-full h-full bg-slate-200 rounded-lg text-slate-200  "
+                >a</div>
+              </div> 
+              <div
+                className="image-container w-20 h-24  rounded-lg  relative "
+              >
+                
+                <div
+                  className="w-full h-full bg-slate-200 rounded-lg text-slate-200  "
+                >a</div>
+              </div> 
+               
+          </div>
+
+          
+          </div>
+        </div>
+      </div>
+      <div className="w-full h-[520px] sm:h-60 bg-white p-4 rounded-lg overflow-y-scroll no-scrollbar">
+        <div className="mb-4">
+          <h1 className="font-semibold text-gray-600 mb-4 font-avalonN">Product Information</h1>
+          <hr />
+        </div>
+        <form className="w-full flex flex-col gap-4 text-gray-500" >
+          <div className="flex gap-4 flex-wrap justify-between items-center w-full">
+            <div className="flex flex-col h-10 flex-auto font-avalonN">
+              <div className="w-full h-full bg-gray-200 text-gray-200 rounded-lg">a</div>
+            </div>
+            <div className="flex flex-col h-10 flex-auto font-avalonN">
+            <div className="w-full h-full bg-gray-200 text-gray-200 rounded-lg">a</div>
+            </div>
+            <div className="flex flex-col h-10 flex-auto font-avalonN">
+            <div className="w-full h-full bg-gray-200 text-gray-200 rounded-lg">a</div>
+            </div>
+          </div>
+          {/* Categories and subcategories */}
+          <div className="flex gap-4 justify-between items-center flex-wrap animate-pulse">
+            <div className="flex-auto flex h-10 flex-col font-avalonN">
+            <div className="w-full h-full bg-gray-200 text-gray-200 rounded-lg">a</div>
+            </div>
+            <div className="flex-auto flex h-10 flex-col font-avalonN">
+            <div className="w-full h-full bg-gray-200 text-gray-200 rounded-lg">a</div>
+            </div>
+            <div className="flex flex-col h-10 flex-auto font-avalonN">
+            <div className="w-full h-full bg-gray-200 text-gray-200 rounded-lg">a</div>
+            </div>
+          </div>
+          <div className="flex justify-end gap-4">
+            <button type="submit" className="py-2 px-4 rounded-lg text-white font-avalonB bg-[#FF6C2F]">
+              Create Product
+            </button>
+            <button type="button" className="py-2 px-4 rounded-lg border border-gray-600 font-avalonB text-gray-600" onClick={()=>{route("/products/list")}}>
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+      
+    </div> );
   }
 
   if (error) {
-    return <p>Error fetching product: {error}</p>;
+    return (
+      <div className="px-4 sm:px-8 py-1 sm:py-4  ">
+        <ErrorComponent></ErrorComponent>
+      </div>
+    );
   }
 
   console.log(newImages);
@@ -277,10 +385,10 @@ console.log(selectedOptions);
       <div className="w-full bg-white p-4 rounded-lg mb-4 max-h-[250px] overflow-y-scroll no-scrollbar ">
         <div className="mb-4">
           <div className="flex justify-between items-center  ">
-          <h1 className="font-semibold text-gray-600  ">
+          <h1 className="font-semibold text-gray-600 font-avalonN ">
             Edit Product Photo
           </h1>
-          <div className="py-1 px-4 bg-red-500  text-white hover:bg-red-400 hover:shadow-lg flex items-center group gap-2  rounded-xl cursor-pointer border duration-300 transition font-semibold border-red-700  " onClick={()=>{removeProduct(productId.id)}}>
+          <div className="py-1 px-4 bg-red-500  text-white font-avalonB hover:bg-red-400 hover:shadow-lg flex items-center group gap-2  rounded-xl cursor-pointer border duration-300 transition font-semibold border-red-700  " onClick={()=>{removeProduct(productId.id)}}>
             Remove <span className=""><i class="fa-solid fa-trash-can text-sm text-white group-hover:rotate-45 transition duration-300  "></i></span>
           </div>
           </div>
@@ -292,9 +400,9 @@ console.log(selectedOptions);
         >
           <div className="text-center flex items-center gap-4 ">
             <i className="fa-solid fa-cloud-arrow-up text-xl text-[#FF6C2F]"></i>
-            <h3 className=" font-medium text-gray-700">
+            <h3 className=" font-medium text-gray-700 font-avalonB">
               Drop your images here, or{" "}
-              <span className="text-[#FF6C2F] font-semibold">click to browse</span>
+              <span className="text-[#FF6C2F] font-semibold font-avalonB">click to browse</span>
             </h3>
           
           </div>
@@ -308,7 +416,7 @@ console.log(selectedOptions);
         </form> 
 
         <div className="previous-images">
-          <h3 className="font-semibold text-gray-500"> Images</h3>
+          <h3 className="font-semibold text-gray-500 font-avalonN"> Images</h3>
           <div className="flex items-center flex-wrap gap-4">
             <div className="flex gap-4">
             {remainingImages.map((img, index) => (
@@ -337,7 +445,7 @@ console.log(selectedOptions);
               <div key={index} className="image-preview w-auto h-24 relative">
                 <button
                   onClick={() => handleRemoveNewImage(index)}
-                  className="cut-button absolute bg-red-500 cursor-pointer   h-4 w-4 right-0 translate-x-1 -translate-y-1 flex justify-center items-center rounded-full"
+                  className="cut-button absolute bg-red-500 cursor-pointer font-avalonB  h-4 w-4 right-0 translate-x-1 -translate-y-1 flex justify-center items-center rounded-full"
                 >
                  <i class="fa-solid fa-xmark text-white text-sm"></i>
                 </button>
@@ -356,34 +464,34 @@ console.log(selectedOptions);
       </div>
       <div className="w-full h-[520px] sm:h-60 bg-white p-4 rounded-lg overflow-y-scroll no-scrollbar">
         <div className="mb-4">
-          <h1 className="font-semibold text-gray-600 mb-4">Product Information</h1>
+          <h1 className="font-semibold text-gray-600 mb-4 font-avalonN">Product Information</h1>
           <hr />
         </div>
         <form className="w-full flex flex-col gap-4 text-gray-500" onSubmit={handleCreateProduct}>
           <div className="flex gap-4 flex-wrap justify-between items-center w-full">
-            <div className="flex flex-col flex-auto">
+            <div className="flex flex-col flex-auto font-avalonN">
               <label htmlFor="productname">Product Name</label>
               <input
                 id="productname"
                 type="text"
                 value={productName}
                 onChange={(e) => setProductName(e.target.value)}
-                className="rounded-lg border border-gray-300 hover:border-gray-400 outline-none px-4 py-1.5"
+                className="rounded-lg border font-avalonN border-gray-300 hover:border-gray-400 outline-none px-4 py-1.5"
                 placeholder="Item Name"
               />
             </div>
-            <div className="flex flex-col flex-auto">
+            <div className="flex flex-col flex-auto font-avalonN">
               <label htmlFor="Price">Price</label>
               <input
                 id="price"
                 type="number"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
-                className="rounded-lg border outline-none px-4 py-1.5 border-gray-300 hover:border-gray-400"
+                className="rounded-lg border font-avalonN outline-none px-4 py-1.5 border-gray-300 hover:border-gray-400"
                 placeholder="Item Price"
               />
             </div>
-            <div className="flex flex-col flex-auto">
+            <div className="flex flex-col flex-auto font-avalonN">
               <label htmlFor="tag-selector" className="form-label">
                 Tag
               </label>
@@ -401,7 +509,7 @@ console.log(selectedOptions);
           </div>
           {/* Categories and subcategories */}
           <div className="flex gap-4 justify-between items-center flex-wrap">
-            <div className="flex-auto flex flex-col">
+            <div className="flex-auto flex flex-col font-avalonN">
               <label htmlFor="category" className="">
                 Category
               </label>
@@ -409,7 +517,7 @@ console.log(selectedOptions);
                 id="category"
                 value={selectedCategory}
                 onChange={handleCategoryChange}
-                className="border rounded-lg p-2 outline-none border-gray-300 hover:border-gray-400"
+                className="border rounded-lg font-avalonN p-2 outline-none border-gray-300 hover:border-gray-400"
               >
                 <option value="">Select Category</option>
                 {categories.map((category) => (
@@ -419,7 +527,7 @@ console.log(selectedOptions);
                 ))}
               </select>
             </div>
-            <div className="flex-auto flex flex-col">
+            <div className="flex-auto flex flex-col font-avalonN">
               <label htmlFor="subcategory" className="">
                 Subcategory
               </label>
@@ -427,7 +535,7 @@ console.log(selectedOptions);
                 id="subcategory"
                 value={selectedSubcategory}
                 onChange={handleSubcategoryChange}
-                className="border rounded-lg p-2 outline-none border-gray-300 hover:border-gray-400"
+                className="border rounded-lg p-2 outline-none font-avalonN border-gray-300 hover:border-gray-400"
                 disabled={!subcategories.length}
               >
                 <option value="">Select Subcategory</option>
@@ -438,13 +546,13 @@ console.log(selectedOptions);
                 ))}
               </select>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col font-avalonN">
               <label htmlFor="subsubcategory" className="">
                 Sub-Subcategory
               </label>
               <select
                 id="subsubcategory"
-                className="border rounded-lg p-2 outline-none border-gray-300 hover:border-gray-400"
+                className="border rounded-lg p-2 outline-none font-avalonN border-gray-300 hover:border-gray-400"
                 disabled={!subSubcategories.length}
                 value={selectedSubSubcategories}
                 onChange={handleSubsubcategoryChange}
@@ -459,10 +567,10 @@ console.log(selectedOptions);
             </div>
           </div>
           <div className="flex justify-end gap-4">
-            <button type="submit" className="py-2 px-4 rounded-lg text-white bg-[#FF6C2F]">
+            <button type="submit" className="py-2 px-4 rounded-lg text-white font-avalonB bg-[#FF6C2F]">
               Create Product
             </button>
-            <button type="button" className="py-2 px-4 rounded-lg border border-gray-600 text-gray-600" onClick={()=>{route("/products/list")}}>
+            <button type="button" className="py-2 px-4 rounded-lg border border-gray-600 font-avalonB text-gray-600" onClick={()=>{route("/products/list")}}>
               Cancel
             </button>
           </div>

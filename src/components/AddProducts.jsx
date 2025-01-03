@@ -190,7 +190,7 @@ const AddProducts = () => {
     <div className="px-4 sm:px-8 py-1 sm:py-1">
       <div className="w-full bg-white max-h-[245px] sm:max-h-[220px] p-4 rounded-lg mb-4 overflow-y-scroll no-scrollbar ">
         <div className="mb-4">
-          <h1 className="font-semibold text-gray-600 mb-4">
+          <h1 className="font-semibold text-gray-600 mb-4 font-avalonN">
             Edit Product Photo
           </h1>
           <hr />
@@ -201,9 +201,9 @@ const AddProducts = () => {
         >
           <div className="text-center flex items-center gap-4 ">
             <i className="fa-solid fa-cloud-arrow-up text-xl text-[#FF6C2F]"></i>
-            <h3 className=" font-medium text-gray-700">
+            <h3 className=" font-medium text-gray-700 font-avalonB">
               Drop your images here, or{" "}
-              <span className="text-[#FF6C2F] font-semibold">click to browse</span>
+              <span className="text-[#FF6C2F] font-semibold font-avalonB">click to browse</span>
             </h3>
           
           </div>
@@ -217,7 +217,7 @@ const AddProducts = () => {
         </form> 
 
         <div className="previous-images">
-          <h3 className="font-semibold text-gray-500"> Images</h3>
+          <h3 className="font-semibold text-gray-500 font-avalonN"> Images</h3>
           <div className="flex items-center  ">
           <div className="flex gap-4">
             {images.map((file, index) => (
@@ -243,7 +243,7 @@ const AddProducts = () => {
       </div>
       <div className="w-full sm:h-60 md:h-[300px] bg-white p-4 rounded-lg overflow-y-scroll no-scrollbar">
         <div className="mb-4">
-          <h1 className="font-semibold text-gray-600 mb-4">
+          <h1 className="font-semibold text-gray-600 mb-4 font-avalonN">
             Product Information
           </h1>
           <hr />
@@ -253,7 +253,7 @@ const AddProducts = () => {
           onSubmit={handleCreateProduct}
         >
           <div className="flex gap-4 flex-wrap justify-between items-center w-full">
-            <div className="flex flex-col flex-auto">
+            <div className="flex flex-col flex-auto font-avalonN">
               <label htmlFor="productname">Product Name</label>
               <input
                 id="productname"
@@ -264,7 +264,7 @@ const AddProducts = () => {
                 placeholder="Item Name"
               />
             </div>
-            <div className="flex flex-col flex-auto">
+            <div className="flex flex-col flex-auto font-avalonN">
               <label htmlFor="Price">Price</label>
               <input
                 id="price"
@@ -275,7 +275,7 @@ const AddProducts = () => {
                 placeholder="Item Price"
               />
             </div>
-            <div className="flex flex-col flex-auto">
+            <div className="flex flex-col flex-auto font-avalonN">
               <label htmlFor="tag-selector" className="form-label">
                 Tag
               </label>
@@ -293,7 +293,7 @@ const AddProducts = () => {
           </div>
           {/* Categories and subcategories */}
           <div className="flex gap-4 justify-between items-center flex-wrap">
-            <div className="flex-auto flex flex-col">
+            <div className="flex-auto flex flex-col font-avalonN">
               <label htmlFor="category" className="">
                 Category
               </label>
@@ -311,7 +311,7 @@ const AddProducts = () => {
                 ))}
               </select>
             </div>
-            <div className="flex-auto flex flex-col">
+            <div className="flex-auto flex flex-col font-avalonN" >
               <label htmlFor="subcategory" className="">
                 Subcategory
               </label>
@@ -330,7 +330,7 @@ const AddProducts = () => {
                 ))}
               </select>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col font-avalonN">
               <label htmlFor="subsubcategory" className="">
                 Sub-Subcategory
               </label>
@@ -350,7 +350,7 @@ const AddProducts = () => {
               </select>
             </div>
           </div>
-          <div className="flex justify-end gap-4">
+          <div className="flex justify-end gap-4 font-avalonB">
             <button
               type="submit"
               className="py-2 px-4 rounded-lg text-white bg-[#FF6C2F]"
@@ -359,7 +359,7 @@ const AddProducts = () => {
             </button>
             <button
               type="button"
-              className="py-2 px-4 rounded-lg border border-gray-600 text-gray-600"
+              className="py-2 px-4 rounded-lg border font-avalonB border-gray-600 text-gray-600"
               onClick={()=>{route("/") }}
             >
               Cancel
