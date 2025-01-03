@@ -1,44 +1,19 @@
 import React, { useEffect, useState } from 'react'
+import ErrorComponent from './ErrorComponent';
+
+  
 
 
-// const data = [
-//   {
-//     name: "John",
-//     created: "2023-01-15T10:30:00Z",
-//     birth: "1995-06-21",
-//     contact: "+1 555-1234"
-//   },
-//   {
-//     name: "Jane",
-//     created: "2023-05-10T14:45:00Z",
-//     birth: "1988-11-03",
-//     contact: "+1 555-5678"
-//   },
-//   {
-//     name: "Alice",
-//     created: "2023-08-20T09:00:00Z",
-//     birth: "2000-03-12",
-//     contact: "+1 555-9101"
-//   },
-//   {
-//     name: "Bob",
-//     created: "2023-10-05T18:15:00Z",
-//     birth: "1992-07-19",
-//     contact: "+1 555-1122"
-//   },
-//   {
-//     name: "Emily",
-//     created: "2023-12-01T16:20:00Z",
-//     birth: "1998-09-25",
-//     contact: "+1 555-3344"
-//   }
-// ]
+
 
 
 
 const Users = () => {
 
- const[UserData, setUserData] = useState([{name:"", gender:"", role:"" , email:""}])
+  const[UserData, setUserData] = useState([{name:"", gender:"", role:"" , email:""}])
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
 
  useEffect(() => {
   const fetchUserdata = async () => {
@@ -58,14 +33,139 @@ const Users = () => {
       console.log('Users:', data);
       setUserData(data.users); // Assuming the API response has a `users` field
     } catch (error) {
+      setError(error.message)
       console.error('Error fetching users:', error.message);
+    }
+    finally{
+      setLoading(false)
     }
   };
 
   fetchUserdata(); // Call the function when the component mounts
 }, []); 
 
-console.log(UserData);
+
+if (loading) {
+return (
+  <div className="px-4 sm:px-8 py-4">
+      <div className="bg-white rounded-lg overflow-hidden shadow-md">
+        <div className="flex sm:flex-row items-center  p-4">
+          <h1 className="font-semibold text-lg text-gray-700 text-center sm:text-left font-avalonN">
+            All User List
+          </h1>
+          
+        </div>
+        <div className="overflow-x-auto overflow-y-auto max-h-[650px] lg:max-h-[400px] no-scrollbar">
+          <table className="w-full text-sm text-left text-gray-500">
+            <thead className="text-xs text-gray-700 bg-gray-100  border-b font-avalonN">
+              <tr>
+              <th scope="col" className="px-4 py-3">
+                  Profile
+                </th>
+                <th scope="col" className="px-4 py-3">
+                  Name
+                </th>
+                <th scope="col" className="px-4 py-3">
+                  Gender
+                </th>
+                <th scope="col" className="px-4 py-3">
+                Contact
+                </th>
+                <th scope="col" className="px-4 py-3">
+                  Verified
+                </th>
+                <th scope="col" className="px-4 py-3">
+                Website Created
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr
+                  className="bg-white border-b hover:bg-gray-50"
+                >
+                  <td
+                    className="px-4 py-3 "
+                  >
+                    <div className="h-10 w-10 rounded-full overflow-hidden bg-slate-200 text-slate-200">a</div>
+                  </td>
+                  <td
+                    scope="row"
+                    className="px-4 py-3 font-medium text-gray-900 truncate p-1 "
+                  ><div className="h-full w-full text-slate-200 bg-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1 " ><div className="h-full w-full text-slate-200 bg-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"  ><div className="h-full w-full text-slate-200 bg-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"  ><div className="h-full w-full text-slate-200 bg-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"  ><div className="h-full w-full text-slate-200 bg-slate-200 ">a</div></td>
+                </tr>
+                <tr
+                  className="bg-white border-b hover:bg-gray-50"
+                >
+                  <td
+                    className="px-4 py-3 "
+                  >
+                    <div className="h-10 w-10 rounded-full overflow-hidden bg-slate-200 text-slate-200">a</div>
+                  </td>
+                  <td
+                    scope="row"
+                    className="px-4 py-3 font-medium text-gray-900 truncate p-1 "
+                  ><div className="h-full w-full text-slate-200 bg-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1 " ><div className="h-full w-full text-slate-200 bg-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"  ><div className="h-full w-full text-slate-200 bg-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"  ><div className="h-full w-full text-slate-200 bg-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"  ><div className="h-full w-full text-slate-200 bg-slate-200 ">a</div></td>
+                </tr>
+                <tr
+                  className="bg-white border-b hover:bg-gray-50"
+                >
+                  <td
+                    className="px-4 py-3 "
+                  >
+                    <div className="h-10 w-10 rounded-full overflow-hidden bg-slate-200 text-slate-200">a</div>
+                  </td>
+                  <td
+                    scope="row"
+                    className="px-4 py-3 font-medium text-gray-900 truncate p-1 "
+                  ><div className="h-full w-full text-slate-200 bg-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1 " ><div className="h-full w-full text-slate-200 bg-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"  ><div className="h-full w-full text-slate-200 bg-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"  ><div className="h-full w-full text-slate-200 bg-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"  ><div className="h-full w-full text-slate-200 bg-slate-200 ">a</div></td>
+                </tr>
+                <tr
+                  className="bg-white border-b hover:bg-gray-50"
+                >
+                  <td
+                    className="px-4 py-3 "
+                  >
+                    <div className="h-10 w-10 rounded-full overflow-hidden bg-slate-200 text-slate-200">a</div>
+                  </td>
+                  <td
+                    scope="row"
+                    className="px-4 py-3 font-medium text-gray-900 truncate p-1 "
+                  ><div className="h-full w-full text-slate-200 bg-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1 " ><div className="h-full w-full text-slate-200 bg-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"  ><div className="h-full w-full text-slate-200 bg-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"  ><div className="h-full w-full text-slate-200 bg-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"  ><div className="h-full w-full text-slate-200 bg-slate-200 ">a</div></td>
+                </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+)  
+}
+
+
+if (error) {
+  return (
+  <div className="px-4 sm:px-8 py-4">
+    <ErrorComponent/>
+  </div>
+  );
+}
+
 
 
 

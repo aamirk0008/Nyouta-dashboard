@@ -36,7 +36,7 @@ const Sidebar = ( { isMobileMenuOpen, setIsMobileMenuOpen, setIsLogin  } ) => {
     // Simulate logout process
     setTimeout(() => {
       setIsLogoutLoading(false);
-      setIsLogin(false)
+      setIsLogin(true)
       // Add actual logout logic here
     }, 1000);
   };

@@ -5,6 +5,9 @@ const Dashboard = ({setIsMobileMenuOpen}) => {
 
   const [ProductData, setProductData] = useState([])
   const [Orders, setOrders] = useState([])
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
 
     useEffect(() => {
        const fetchProductdata = async () => {
@@ -43,17 +46,23 @@ const Dashboard = ({setIsMobileMenuOpen}) => {
              const ordersData = await response.json();
              setOrders(ordersData);
            } catch (err) {
-             console.log(err);
+            setError(err)
+            console.log(err);
              
            } 
+           finally{
+            setLoading(false)
+           }
          };
      
          fetchAllOrders();
        }, []);
     
+
+
      
   return (
-    <div className=" h-[540px] w-full bg-slate-200 overflow-y-scroll no-scrollbar    " onClick={()=>{setIsMobileMenuOpen(false)}}>
+    <div className=" h-[1000px] lg:h-[540px] w-full bg-slate-200 overflow-y-scroll no-scrollbar    " onClick={()=>{setIsMobileMenuOpen(false)}}>
     
     <div className='w-full  py-2 px-8' > 
       <div className="flex w-full flex-wrap gap-4 ">
@@ -103,7 +112,91 @@ const Dashboard = ({setIsMobileMenuOpen}) => {
       </div>
       </div>
     </div>
-    <div className="bg-white rounded-lg mx-8 mt-4 h-[400px] shadow-md">
+    {loading ? <div className="bg-white rounded-lg mx-8 mt-4 h-[400px] shadow-md">
+        <div className="flex sm:flex-row items-center justify-between p-4">
+          <h1 className="font-semibold text-lg text-gray-700 text-center sm:text-left font-avalonN">
+            Recent Orders 
+          </h1>
+          
+        </div>
+        <div className="overflow-x-auto overflow-y-auto max-h-[650px] lg:max-h-[400px] no-scrollbar">
+          <table className="w-full text-sm text-left text-gray-500">
+            <thead className="text-xs text-gray-700 bg-gray-100 uppercase border-b font-avalonN">
+              <tr>
+                <th scope="col" className="px-4 py-3">
+                  Order Id
+                </th>
+                <th scope="col" className="px-4 py-3">
+                  Created at
+                </th>
+                <th scope="col" className="px-4 py-3">
+                payment status
+                </th>
+                <th scope="col" className="px-4 py-3">
+                Payment Id
+                </th>
+                <th scope="col" className="px-4 py-3">
+                  total
+                </th>
+                <th scope="col" className="px-4 py-3">
+                items
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                <tr
+                 
+                  className="bg-white border-b hover:bg-gray-50"
+                >
+                  
+                  <td scope="row" className="px-4 py-3 font-medium text-gray-900 truncate p-1"> <div className="h-full w-full bg-slate-200 text-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"> <div className="h-full w-full bg-slate-200 text-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"> <div className="h-full w-full bg-slate-200 text-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"> <div className="h-full w-full bg-slate-200 text-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"> <div className="h-full w-full bg-slate-200 text-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"> <div className="h-full w-full bg-slate-200 text-slate-200 ">a</div></td>
+                </tr>
+                <tr
+                 
+                  className="bg-white border-b hover:bg-gray-50"
+                >
+                  
+                  <td scope="row" className="px-4 py-3 font-medium text-gray-900 truncate p-1"> <div className="h-full w-full bg-slate-200 text-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"> <div className="h-full w-full bg-slate-200 text-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"> <div className="h-full w-full bg-slate-200 text-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"> <div className="h-full w-full bg-slate-200 text-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"> <div className="h-full w-full bg-slate-200 text-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"> <div className="h-full w-full bg-slate-200 text-slate-200 ">a</div></td>
+                </tr>
+                <tr
+                 
+                  className="bg-white border-b hover:bg-gray-50"
+                >
+                  
+                  <td scope="row" className="px-4 py-3 font-medium text-gray-900 truncate p-1"> <div className="h-full w-full bg-slate-200 text-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"> <div className="h-full w-full bg-slate-200 text-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"> <div className="h-full w-full bg-slate-200 text-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"> <div className="h-full w-full bg-slate-200 text-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"> <div className="h-full w-full bg-slate-200 text-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"> <div className="h-full w-full bg-slate-200 text-slate-200 ">a</div></td>
+                </tr>
+                <tr
+                 
+                  className="bg-white border-b hover:bg-gray-50"
+                >
+                  
+                  <td scope="row" className="px-4 py-3 font-medium text-gray-900 truncate p-1"> <div className="h-full w-full bg-slate-200 text-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"> <div className="h-full w-full bg-slate-200 text-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"> <div className="h-full w-full bg-slate-200 text-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"> <div className="h-full w-full bg-slate-200 text-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"> <div className="h-full w-full bg-slate-200 text-slate-200 ">a</div></td>
+                  <td className="px-4 py-3 p-1"> <div className="h-full w-full bg-slate-200 text-slate-200 ">a</div></td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div> : <div className="bg-white rounded-lg mx-8 mt-4 h-[400px] shadow-md">
         <div className="flex sm:flex-row items-center justify-between p-4">
           <h1 className="font-semibold text-lg text-gray-700 text-center sm:text-left font-avalonN">
             Recent Orders 
@@ -153,6 +246,8 @@ const Dashboard = ({setIsMobileMenuOpen}) => {
           </table>
         </div>
       </div>
+
+    }
     
     </div>
   )

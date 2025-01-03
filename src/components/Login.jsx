@@ -11,7 +11,7 @@ const AdminLogin = ({setIsLogin}) => {
     e.preventDefault();
 
     if(email === "admin@gmail.com" && password === "1234"){
-    setIsLogin(true)
+    setIsLogin(false)
     }
     else{
       if(email !== "admin@gmail.com"){
@@ -59,19 +59,19 @@ const AdminLogin = ({setIsLogin}) => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center min-h-screen bg-gradient-to-r from-slate-200 to-white px-4">
-  <div className="w-full md:w-[60%] flex flex-col md:flex-row gap-4 items-center justify-center mb-8 md:mb-0">
-    <div className="h-16 md:h-24">
+    <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen bg-gradient-to-r from-slate-200 to-white px-4">
+  <div className="w-full lg:w-[60%] flex flex-col lg:flex-row gap-4 items-center justify-center mb-8 lg:mb-0">
+    <div className="h-16 lg:h-24">
       <img className="h-full" src={logo} alt="" />
     </div>
-    <h1 className="text-4xl md:text-6xl font-bold mb-4 font-avalonN text-center md:text-left">
+    <h1 className="text-4xl lg:text-6xl font-bold mb-4 font-avalonN text-center lg:text-left">
       Nyouta
     </h1>
-    <div className="h-0.5 ms-24 hidden md:block w-full md:w-0.5 md:h-[30rem] bg-[#B98230]"></div>
+    <div className="h-0.5 ms-24 hidden lg:block w-full lg:w-0.5 lg:h-[30rem] bg-[#B98230]"></div>
   </div>
 
-  <div className="w-full md:w-[40%] max-w-md h-auto md:h-[30rem] p-8 flex flex-col px-16 justify-center bg-gradient-to-tl from-slate-100 to-white shadow-2xl rounded-lg">
-    <h1 className="text-2xl md:text-4xl font-bold text-gray-700 font-avalonN text-center mb-8">
+  <div className="w-full lg:w-[40%] max-w-lg h-auto lg:h-[30rem] p-8 flex flex-col px-16 justify-center bg-gradient-to-tl from-slate-100 to-white shadow-2xl rounded-lg">
+    <h1 className="text-2xl lg:text-4xl font-bold text-gray-700 font-avalonN text-center mb-8">
       Admin Login
     </h1>
     <form onSubmit={handleLogin}>

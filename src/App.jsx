@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import { Outlet } from 'react-router-dom';
 
 
+
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -26,7 +27,7 @@ function App() {
 
   return (
     <>
-    {!isLogin ?  <Login setIsLogin={setIsLogin} /> :
+    {isLogin ?  <Login setIsLogin={setIsLogin} /> :
     <div className='flex w-[100vw] h-[100vh] bg-slate-200 '>
       
       <Sidebar isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} setIsLogin={setIsLogin}/>
