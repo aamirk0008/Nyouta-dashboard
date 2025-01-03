@@ -13,6 +13,8 @@ function App() {
 
 
 
+
+
   useEffect(() => {
     // Simulate loading
     const timer = setTimeout(() => {
@@ -24,10 +26,10 @@ function App() {
 
   return (
     <>
-    {!isLogin ?  <Login/> :
+    {!isLogin ?  <Login setIsLogin={setIsLogin} /> :
     <div className='flex w-[100vw] h-[100vh] bg-slate-200 '>
       
-      <Sidebar isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
+      <Sidebar isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} setIsLogin={setIsLogin}/>
       <div className="h-full w-full lg:w-[95%] ">
         <div className={`${isMobileMenuOpen ? "block" : "hidden"} bg-black  opacity-40 absolute h-full w-full z-40`} onClick={()=>{setIsMobileMenuOpen(false)}}></div>
         <Navbar setIsMobileMenuOpen={setIsMobileMenuOpen}/>

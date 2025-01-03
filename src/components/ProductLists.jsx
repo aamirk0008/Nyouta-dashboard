@@ -171,11 +171,11 @@ const ProductList = () => {
     <div className="px-4 sm:px-8 py-4">
       <div className="bg-white sm:h-[500px] rounded-lg overflow-hidden shadow-md">
         <div className="flex sm:flex-row items-center justify-between p-4">
-          <h1 className="font-semibold text-lg text-gray-700 text-center sm:text-left">
+          <h1 className="font-semibold text-lg text-gray-700 text-center sm:text-left font-avalonN">
             All Product List
           </h1>
-          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-2 sm:mt-0">
-            <button className="p-2 bg-[#E6612A] font-semibold border border-orange-600 hover:shadow-lg hover:-translate-y-0.5 duration-200 transition rounded-lg text-white text-sm" onClick={()=>{navigate("/products/add")}}>
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-2 sm:mt-0 ">
+            <button className="p-2 bg-[#E6612A] font-semibold border font-avalonB border-orange-600 hover:shadow-lg hover:-translate-y-0.5 duration-200 transition rounded-lg text-white text-sm" onClick={()=>{navigate("/products/add")}}>
               Add Product
             </button>
             
@@ -183,7 +183,7 @@ const ProductList = () => {
         </div>
         <div className="overflow-x-auto overflow-y-auto max-h-[650px] lg:max-h-[400px] no-scrollbar">
           <table className="w-full text-sm text-left text-gray-500">
-            <thead className="text-xs text-gray-700 bg-gray-100 uppercase border-b">
+            <thead className="text-xs text-gray-700 bg-gray-100 uppercase font-avalonN border-b">
               <tr>
                 <th scope="col" className="px-4 py-3">
                   Product Name

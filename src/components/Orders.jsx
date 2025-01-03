@@ -109,14 +109,14 @@ const Orders = () => {
     <div className="px-4 sm:px-8 py-4">
       <div className="bg-white rounded-lg overflow-hidden shadow-md">
         <div className="flex sm:flex-row items-center  p-4">
-          <h1 className="font-semibold text-lg text-gray-700 text-center sm:text-left">
+          <h1 className="font-semibold text-lg text-gray-700 text-center sm:text-left font-avalonN">
             All Order List
           </h1>
           
         </div>
         <div className="overflow-x-auto overflow-y-auto max-h-[650px] lg:max-h-[400px] no-scrollbar">
           <table className="w-full text-sm text-left text-gray-500">
-            <thead className="text-xs text-gray-700 bg-gray-100 uppercase border-b">
+            <thead className="text-xs text-gray-700 bg-gray-100 uppercase border-b font-avalonN">
               <tr>
                 <th scope="col" className="px-4 py-3">
                   Order Id
