@@ -73,40 +73,40 @@ const Dashboard = ({setIsMobileMenuOpen}) => {
             <p className='text-2xl font-bold  text-end text-gray-600' >{Orders.length}</p></div>     
         </div>
         <div className="h-[30%] flex justify-between items-center bg-[#F6F8FB] py-2 px-4 ">
-          <div><h2 className='text-sm'><span className='text-green-500'><i class="fa-solid fa-angle-up"></i> 2.3% </span>last week</h2></div>
+          <div><h2 className='text-sm'><span className='text-green-500'><i className="fa-solid fa-angle-up"></i> 2.3% </span>last week</h2></div>
           <div><h2 className='text-sm'>View More</h2></div>
         </div>
       </div>
       <div className=" rounded-lg overflow-hidden bg-white shadow-md w-full md:w-[45%] flex-auto flex flex-col">
         <div className="h-[70%] flex justify-between py-4 px-4">
-            <div className="bg-[#FFDACB] rounded-lg p-2 h-full w-20 flex justify-center items-center"><i class="fa-brands fa-product-hunt text-4xl text-gray-800 "></i></div>     
+            <div className="bg-[#FFDACB] rounded-lg p-2 h-full w-20 flex justify-center items-center"><i className="fa-brands fa-product-hunt text-4xl text-gray-800 "></i></div>     
             <div className=""><h1 className=" text-lg text-gray-500 font-avalonN">Total Products</h1>
             <p className='text-2xl font-bold  text-end text-gray-600' >{ProductData.length}</p></div>     
         </div>
         <div className="h-[30%] flex justify-between items-center bg-[#F6F8FB] py-2 px-4 ">
-          <div><h2 className='text-sm'><span className='text-green-500'><i class="fa-solid fa-angle-up"></i> 2.3% </span>last week</h2></div>
+          <div><h2 className='text-sm'><span className='text-green-500'><i className="fa-solid fa-angle-up"></i> 2.3% </span>last week</h2></div>
           <div><h2 className='text-sm' >View More</h2></div>
         </div>
       </div>
       <div className=" rounded-lg overflow-hidden bg-white shadow-md w-full md:w-[45%] flex-auto flex flex-col">
         <div className="h-[70%] flex justify-between py-4 px-4">
-            <div className="bg-[#FFDACB] rounded-lg p-2 h-full w-20 flex justify-center items-center"><i class="fa-solid fa-globe text-4xl text-gray-800"></i></div>     
+            <div className="bg-[#FFDACB] rounded-lg p-2 h-full w-20 flex justify-center items-center"><i className="fa-solid fa-globe text-4xl text-gray-800"></i></div>     
             <div className=""><h1 className="text-lg text-gray-500 font-avalonN">Websites</h1>
             <p className='text-2xl font-bold  text-end text-gray-600' >0</p></div>     
         </div>
         <div className="h-[30%] flex justify-between items-center bg-[#F6F8FB] py-2 px-4 ">
-          <div><h2 className='text-sm'><span className='text-green-500'><i class="fa-solid fa-angle-up"></i> 2.3% </span>last week</h2></div>
+          <div><h2 className='text-sm'><span className='text-green-500'><i className="fa-solid fa-angle-up"></i> 2.3% </span>last week</h2></div>
           <div><h2 className='text-sm' >View More</h2></div>
         </div>
       </div>
       <div className=" rounded-lg overflow-hidden bg-white shadow-md w-full md:w-[45%] flex-auto flex flex-col">
         <div className="h-[70%] flex justify-between py-4 px-4">
-            <div className="bg-[#FFDACB] rounded-lg p-2 h-full w-20 flex justify-center items-center"><i class="fa-solid fa-money-check-dollar text-4xl text-gray-800"></i></div>     
+            <div className="bg-[#FFDACB] rounded-lg p-2 h-full w-20 flex justify-center items-center"><i className="fa-solid fa-money-check-dollar text-4xl text-gray-800"></i></div>     
             <div className=""><h1 className="text-lg text-gray-500 font-avalonN">Booked Revenue</h1>
             <p className='text-2xl font-bold  text-end text-gray-600' >150</p></div>     
         </div>
         <div className="h-[30%] flex justify-between items-center bg-[#F6F8FB] py-2 px-4 ">
-          <div><h2 className='text-sm'><span className='text-green-500'><i class="fa-solid fa-angle-up"></i> 2.3% </span>last week</h2></div>
+          <div><h2 className='text-sm'><span className='text-green-500'><i className="fa-solid fa-angle-up"></i> 2.3% </span>last week</h2></div>
           <div><h2 className='text-sm'>View More</h2></div>
         </div>
       </div>

@@ -5,16 +5,15 @@ import { ToastContainer, toast } from 'react-toastify';
 import ErrorComponent from './ErrorComponent';
 
 
-
 const data = {
   "Print Invitations": {
     "Wedding Invitations": [
       "Elegant Collection",
       "Vintage Collection",
       "Royal Invitations",
-      "Make Own Design Slider Invitations",
-      "Submit Design Idea Passport Theme Invitations",
-      "Send Ideal Design Newspaper Invitations",
+      "Slider Invitations",
+      "Passport Theme Invitations",
+      "Newspaper Invitations",
       "Aadhar Card Invitations",
       "ATM Theme Invitations",
     ],
@@ -36,9 +35,9 @@ const data = {
   "E-Invitations": {
     "Wedding Invitations": [
       "Pre Invitations - Manuhar",
-      "Make Own Design Save the Date",
-      "Submit Design Idea Wedding Invitations",
-      "Send Ideal Design Ceremony Invitations",
+      "Save the Date",
+      " Wedding Invitations",
+      " Ceremony Invitations",
       "Wedding Timeline",
       "Royal Collection - NEW",
     ],
@@ -57,6 +56,191 @@ const data = {
       "Opening Ceremony",
       "Kua Poojan",
     ],
+    "Short Invitations": ["FREE Wedding Invitations", "Party Invitations"],
+    "Matrimonial Biodata": ["Marriage Biodata"],
+  },
+  "Itinerary": {
+    "Wedding Itinerary": [
+      "Room Itinerary",
+      "Check-in Itinerary",
+      "Room Key Enevelop",
+      "Thank You Cards",
+      "Wedding Menu",
+      "Table Itinerary",
+      "Dining Table Mats",
+    ],
+    "Stickers": [
+      "Guest Name Stickers",
+      "Gift Box Sticker",
+      "Vehicle Stickers",
+      "Designer Stickers",
+      "Vintage Stickers",
+    ],
+    "Tags / Badges": [
+      "Luggage Tag",
+      "Door Handle Tag",
+      "Gift Tag",
+      "Parking Tags",
+      "Wedding Badges",
+    ],
+    "Welcome Signages": [
+      "Wedding Ceremony",
+      "Haldi Ceremony",
+      "Mehandi Ceremony",
+      "Sangeet Ceremony",
+      "Direction Signage",
+      "Engagement Ceremony",
+      "Anniversary Ceremony",
+      "Lohri Party",
+      "Halloween Party",
+      "Birthday Party",
+      "Celeration Party",
+    ],
+    "Accessories": [
+      "Party Dangler",
+      "Coasters",
+      "Paper Napkins",
+      "Event Banner",
+      "Face Mask",
+      "Funny Poster",
+    ],
+    "Games": ["Playing Cards", "Puzzle Games", "Fun Games"],
+  },
+  "Photo Books": {
+    "Soft Cover Photobook": [
+      "Wedding Photobook",
+      "Engagement Photobook",
+      "Anniversary Photobook",
+      "Birthday Photobook",
+    ],
+    "Hard Cover Photobook": [
+      "Wedding Photobook",
+      "Engagement Photobook",
+      "Anniversary Photobook",
+      "Birthday Photobook",
+    ],
+    "Spiral Photobook": [
+      "Wedding Photobook",
+      "Engagement Photobook",
+      "Anniversary Photobook",
+      "Birthday Photobook",
+    ],
+    "Photo Folder": [
+      "Wedding Photobook",
+      "Engagement Photobook",
+      "Anniversary Photobook",
+      "Birthday Photobook",
+    ],
+    "Digital Photobook": [
+      "Wedding Photobook",
+      "Engagement Photobook",
+      "Anniversary Photobook",
+      "Birthday Photobook",
+    ],
+  },
+  "Calendars 2025": {
+    "Mini Desktop Calendar": ["Wedding Calendar", "Birthday Calendar", "Family & Kids"],
+    "Wall Calendar - Portrait": [
+      "Wedding Calendar",
+      "Birthday Calendar",
+      "Family & Kids",
+    ],
+    "Wall Calendar - Landscape": [
+      "Wedding Calendar",
+      "Birthday Calendar",
+      "Family & Kids",
+    ],
+    "Desktop Calendar": [
+      "Wedding Calendar",
+      "Birthday Calendar",
+      "Family & Kids",
+    ],
+    "Table Tent Calendar": [
+      "Wedding Calendar",
+      "Birthday Calendar",
+      "Family & Kids",
+    ],
+    "Poster Calendar": [
+      "Wedding Calendar",
+      "Birthday Calendar",
+      "Family & Kids",
+    ],
+  },
+  "Planner Books": {
+    "Planner Books": [
+      "Wedding Management",
+      "Guest Management",
+      "Wedding Notepad",
+      "Guest List Booklet - Best Seller",
+    ],
+    "Free Printable": [
+      "Wedding Guest List-PDF",
+      "Wedding Guest List - XLS",
+      "Wedding Notepad - PDF",
+    ],
+  },
+  "Guest Surprising !!!": {
+    "Newspapers": [
+      "Wedding Newspaper",
+      "Engagement Newspaper",
+      "Birthday Newspaper",
+      "Special Event",
+      "E-Paper",
+    ],
+    "Magazine": [
+      "Wedding Magazine",
+      "Engagement Magazine",
+      "Birthday Magazine",
+      "Special Event",
+      "E-Magazine",
+    ],
+  },
+  "Free Greetings": {
+    "Wishes Greeting": [
+      "Wishes to New Wed",
+      "Engagement Wishes",
+      "Anniversary Wishes",
+      "Birthday Wishes",
+      "Retirement Wishes",
+      "General Wishes",
+    ],
+    "Thanks Greeting": [
+      "Thanks to Invitor",
+      "Thanks to Guests",
+      "Thanks for Wishes",
+      "General Greetings",
+    ],
+    "Feeling Greetings": [
+      "Love Cards",
+      "Sorry Cards",
+      "Congrats Cards",
+      "Miss you Card",
+      "Good Luck Cards",
+    ],
+    "Funny Greetings": [
+      "For Wedding",
+      "For Anniversary",
+      "For Party",
+      "General Greetings",
+    ],
+  },
+  "E-Shop": {
+    "Shagun Envelop": ["For Wedding Guests", "For New Wed"],
+    "Photo Magnet": [
+      "Mini Photo Magnet",
+      "Wedding",
+      "Family",
+      "Birthday",
+      "Quotes",
+      "Travel",
+      "Faces",
+      "Funny",
+      "Religious",
+      "Feeling",
+      "Rangoli",
+    ],
+    "Gifts": ["Wedding Gift", "Party Gift", "Packaging"],
+    "Essentials": ["Wedding Shopping", "Party Shopping"],
   },
 };
 
