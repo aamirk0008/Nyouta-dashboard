@@ -9,7 +9,20 @@ import { Outlet } from 'react-router-dom';
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
+
+  useEffect(() => {
+    const token = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("token="))
+      ?.split("=")[1];
+
+    if (token === "static-admin-token") {
+      setIsLogin(true);
+    } else {
+      setIsLogin(false);
+    }
+  }, []); 
 
 
 
@@ -27,7 +40,7 @@ function App() {
 
   return (
     <>
-    {isLogin ?  <Login setIsLogin={setIsLogin} /> :
+    {!isLogin ?  <Login setIsLogin={setIsLogin} /> :
     <div className='flex w-[100vw] h-[100vh] bg-slate-200 '>
       
       <Sidebar isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} setIsLogin={setIsLogin}/>

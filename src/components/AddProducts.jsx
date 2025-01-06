@@ -72,34 +72,34 @@ const AddProducts = () => {
   const [images, setImages] = useState([]);
   const route = useNavigate()
 
- useEffect(() => {
-  const fetchProductdata = async () => {
-    try {
-      const response = await fetch('http://localhost:5000/api/v1/products/products', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+//  useEffect(() => {
+//   const fetchProductdata = async () => {
+//     try {
+//       const response = await fetch('http://localhost:5000/api/v1/products/products', {
+//         method: 'GET',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//       });
 
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status} - ${response.statusText}`);
-      }
+//       if (!response.ok) {
+//         throw new Error(`Error: ${response.status} - ${response.statusText}`);
+//       }
 
-      const data = await response.json();
-      setProductData(data);
-    } catch (error) {
-      console.error('Error fetching users:', error.message);
-    }
-  };
+//       const data = await response.json();
+//       setProductData(data);
+//     } catch (error) {
+//       console.error('Error fetching users:', error.message);
+//     }
+//   };
 
-  fetchProductdata(); 
-  }, []);
+//   fetchProductdata(); 
+//   }, []);
 
-  const handleFileSelect = (event) => {
-    const files = Array.from(event.target.files);
-    setImages((prevImages) => [...prevImages, ...files]);
-  };
+  // const handleFileSelect = (event) => {
+  //   const files = Array.from(event.target.files);
+  //   setImages((prevImages) => [...prevImages, ...files]);
+  // };
 
   const handleCategoryChange = (e) => {
     const category = e.target.value;
@@ -157,11 +157,19 @@ const AddProducts = () => {
         },
         body: JSON.stringify(productData),
       });
+      
   
       if (response.ok) {
         const result = await response.json();
         console.log("Product created successfully:", result);
         toast.success("Product Added")
+        setProductName("");
+        setPrice("");
+        setSelectedOptions("");
+        setSelectedCategory("");
+        setSelectedSubcategory("");
+        setSelectedSubSubcategories("");
+
       } else {
         console.error("Failed to create product. Status:", response.status);
         const errorData = await response.json();
