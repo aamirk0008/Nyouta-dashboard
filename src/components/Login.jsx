@@ -11,7 +11,8 @@ const AdminLogin = ({setIsLogin}) => {
     e.preventDefault();
 
     if(email === "admin@gmail.com" && password === "1234"){
-    setIsLogin(false)
+    document.cookie = "token=static-admin-token; path=/; max-age=3600"; // Expires in 1 hour
+    setIsLogin(true)
     }
     else{
       if(email !== "admin@gmail.com"){
