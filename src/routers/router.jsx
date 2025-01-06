@@ -6,6 +6,8 @@ import Orders from "../components/Orders";
 import AddProducts from "../components/AddProducts";
 import EditProducts from "../components/EditProducts";
 import ProductList from "../components/ProductLists";
+import UserData from "../components/UserData";
+
 
 const router = createBrowserRouter([
     {
@@ -19,6 +21,10 @@ const router = createBrowserRouter([
             {
                 path: '/users',
                 element: <Users/>
+            },
+            {
+                path: '/users/:id',
+                element: <UserData/>
             },
             {
                 path: '/orders',

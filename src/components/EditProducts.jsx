@@ -318,7 +318,7 @@ console.log(selectedOptions);
         }
 
         const response = await fetch(
-          `http://localhost:5000/api/v1/products/products/${productId.id}`,
+          `https://nyouta.onrender.com/api/v1/products/products/${productId.id}`,
           {
             method: "GET",
             headers: {
@@ -400,7 +400,7 @@ console.log(selectedOptions);
     console.log("Product Data:", productData);
 
     try {
-      const response = await fetch(`http://localhost:5000/api/v1/products/products/${productId.id}`, {
+      const response = await fetch(`https://nyouta.onrender.com/api/v1/products/products/${productId.id}`, {
         method: "PUT", // Using PUT as it's an update operation
         headers: {
           "Content-Type": "application/json",
@@ -429,7 +429,7 @@ console.log(selectedOptions);
    // Remove product function
    const removeProduct = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/v1/products/products/${id}`, {
+      const response = await fetch(`https://nyouta.onrender.com/api/v1/products/products/${id}`, {
         method: "DELETE",
       });
 

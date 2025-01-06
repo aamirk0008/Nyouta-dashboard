@@ -12,7 +12,7 @@ const Dashboard = ({setIsMobileMenuOpen}) => {
     useEffect(() => {
        const fetchProductdata = async () => {
          try {
-           const response = await fetch('http://localhost:5000/api/v1/products/products', {
+           const response = await fetch('https://nyouta.onrender.com/api/v1/products/products', {
              method: 'GET',
              headers: {
                'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ const Dashboard = ({setIsMobileMenuOpen}) => {
      useEffect(() => {
          const fetchAllOrders = async () => {
            try {
-             const response = await fetch("http://localhost:5000/api/v1/order/get-all-orders");
+             const response = await fetch("https://nyouta.onrender.com/api/v1/order/get-all-orders");
      
              if (!response.ok) {
                const errorData = await response.json();

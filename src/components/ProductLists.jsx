@@ -21,7 +21,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProductdata = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/v1/products/products', {
+        const response = await fetch('https://nyouta.onrender.com/api/v1/products/products', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ const ProductList = () => {
 
      const removeProduct = async (id) => {
       try {
-        const response = await fetch(`http://localhost:5000/api/v1/products/products/${id}`, {
+        const response = await fetch(`https://nyouta.onrender.com/api/v1/products/products/${id}`, {
           method: "DELETE",
         });
   
