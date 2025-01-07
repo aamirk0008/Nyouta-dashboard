@@ -87,18 +87,19 @@ const ProductList = () => {
 
  if (loading) {
   return (
+    <div className="px-4 sm:px-8 py-4">
     <div className="bg-white lg:h-[500px] rounded-lg overflow-hidden shadow-md">
         <div className="flex sm:flex-row items-center justify-between p-4">
           <h1 className="font-semibold text-lg text-gray-700 text-center sm:text-left font-avalonN">
             All Product List
           </h1>
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-2 sm:mt-0 ">
-            <button className="p-2 bg-[#E6612A] font-semibold border font-avalonB border-orange-600 hover:shadow-lg hover:-translate-y-0.5 duration-200 transition rounded-lg text-white text-sm" onClick={()=>{navigate("/products/add")}}>
+            <button className="p-2 bg-[#E6612A] font-semibold border font-avalonB border-orange-600 hover:shadow-lg hover:-translate-y-0.5 duration-200 transition rounded-lg text-white text-sm" >
               Add Product
             </button>
             <div className="flex gap-6 items-center ">
             
-            <div className='bg-gray-300 rounded-lg p-2 flex items-center'><span className='me-2 text-gray-500'><i class="fa-solid fa-magnifying-glass"></i></span><input type="text"  className='bg-gray-300 text-gray-500 w-20 md:w-40 placeholder:text-gray-500 outline-none font-avalonB' placeholder='search...' /></div>
+            <div className='bg-gray-200 rounded-lg p-2 flex items-center'><span className='me-2 text-gray-500'><i class="fa-solid fa-magnifying-glass"></i></span><input type="text"  className='bg-slate-200 text-gray-500 w-20 md:w-40 placeholder:text-gray-500 outline-none font-avalonB' placeholder='search...' /></div>
         </div>
             
           </div>
@@ -199,6 +200,7 @@ const ProductList = () => {
           </table>
         </div>
       </div> 
+      </div>
   )
   
  }
@@ -213,7 +215,7 @@ const ProductList = () => {
 
   return (
     <div className="px-4 sm:px-8 py-4">
-       <div className="bg-white md:h-[800px] lg:h-[500px] rounded-lg overflow-hidden shadow-md">
+       <div className="bg-white md:h-[800px] lg:h-[500px] rounded-lg overflow-hidden shadow-lg">
         <div className="flex sm:flex-row items-center justify-between p-4">
           <h1 className="font-semibold text-lg text-gray-700 text-center sm:text-left font-avalonN">
             All Product List
@@ -224,7 +226,7 @@ const ProductList = () => {
             </button>
             <div className="flex gap-6 items-center ">
             
-            <div className='bg-gray-200 rounded-lg p-2 flex items-center'><span className='me-2 text-gray-500'><i class="fa-solid fa-magnifying-glass"></i></span><input type="text" onChange={(e)=>{handleSearch(e)}} className='bg-gray-200 text-gray-500 w-20 md:w-40 placeholder:text-gray-500 outline-none font-avalonB' placeholder='search...' /></div>
+            <div className='bg-gray-200 rounded-lg p-2 flex items-center'><span className='me-2 text-gray-500'><i class="fa-solid fa-magnifying-glass"></i></span><input type="text" onChange={(e)=>{handleSearch(e)}} className='bg-slate-200 text-gray-500 w-20 md:w-40 placeholder:text-gray-500 outline-none font-avalonB' placeholder='search...' /></div>
         </div>
             
           </div>

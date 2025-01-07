@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import logo from "../assets/nyouta-logo2.png";
 import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 
 const AdminLogin = ({setIsLogin}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const route = useNavigate()
   const handleLogin = async (e) => {
 
     e.preventDefault();
@@ -13,6 +14,7 @@ const AdminLogin = ({setIsLogin}) => {
     if(email === "admin@gmail.com" && password === "1234"){
     document.cookie = "token=static-admin-token; path=/; max-age=3600"; // Expires in 1 hour
     setIsLogin(true)
+      route("/dashboard")
     }
     else{
       if(email !== "admin@gmail.com"){

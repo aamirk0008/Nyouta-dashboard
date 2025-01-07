@@ -752,7 +752,7 @@ console.log(selectedOptions);
           </div>
           <div className="flex justify-end gap-4">
             <button type="submit" className="py-2 px-4 rounded-lg text-white font-avalonB bg-[#FF6C2F]">
-              Create Product
+              Edit Product
             </button>
             <button type="button" className="py-2 px-4 rounded-lg border border-gray-600 font-avalonB text-gray-600" onClick={()=>{route("/products/list")}}>
               Cancel

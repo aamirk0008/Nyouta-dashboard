@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo from "../assets/nyouta-logo2.png";
+
 
 const Sidebar = ( { isMobileMenuOpen, setIsMobileMenuOpen, setIsLogin  } ) => {
     const location = useLocation();
-
+    const route = useNavigate()
   const [isLogoutLoading, setIsLogoutLoading] = useState(false);
   const [Click, setClick] = useState(false);
   const [SideBar, setSideBar] = useState(false);
@@ -38,6 +39,7 @@ const Sidebar = ( { isMobileMenuOpen, setIsMobileMenuOpen, setIsLogin  } ) => {
       setIsLogoutLoading(false);
       setIsLogin(false)
       document.cookie = "token=; path=/; max-age=0";
+      route("/")
       // Add actual logout logic here
     }, 1000);
   };
@@ -53,7 +55,7 @@ const Sidebar = ( { isMobileMenuOpen, setIsMobileMenuOpen, setIsLogin  } ) => {
       </div>
       <nav>
         <Link
-          to="/"
+          to="/dashboard"
           className={` py-2.5 px-4 rounded transition duration-200 flex items-center gap-2 ${location.pathname === '/' ? 'text-white ' : 'hover:text-white'}`}
           onClick={() => { setIsMobileMenuOpen(false); setClick(false)}}
         >
