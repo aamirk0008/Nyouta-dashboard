@@ -49,6 +49,30 @@ const Users = () => {
   fetchUserdata(); // Call the function when the component mounts
 }, []); 
 
+//for by pass cors error
+const fetchImage = async (url) => {
+  try {
+    const response = await fetch(url);
+
+    // Check if the fetch request was successful
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    // Convert the response to a Blob (binary large object)
+    const blob = await response.blob();
+
+    // Create a local URL for the image Blob
+    const imageUrl = URL.createObjectURL(blob);
+
+    // Example: Setting the image as the src of an <img> element
+   return imageUrl
+    // Append the image to the body
+  } catch (error) {
+    console.error("Error fetching the image:", error);
+  }
+};
+// console.log(fetchImage("https://lh3.googleusercontent.com/a/ACg8ocK3jXBkiV3_H6jDquXaj4z2O_1QkLK7wGMQHzXHv_pl4vegyR0=s96-c"))
 
 const handleSearch = (e) => {
   const term = e.target.value.toLowerCase();

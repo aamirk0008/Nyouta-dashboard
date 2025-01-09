@@ -1,18 +1,15 @@
-import { useEffect, useState } from 'react'
-import Sidebar from './components/Sidebar';
-import Login from './components/Login';
-import Navbar from './components/Navbar';
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import Dashboard from './components/Dashboard';
-import Users from './components/Users';
-import UserData from './components/UserData';
-import Orders from './components/Orders';
-import AddProducts from './components/AddProducts';
-import EditProducts from './components/EditProducts';
-import ProductList from './components/ProductLists';
-
-
-
+import { useEffect, useState } from "react";
+import Sidebar from "./components/Sidebar";
+import Login from "./components/Login";
+import Navbar from "./components/Navbar";
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
+import Dashboard from "./components/Dashboard";
+import Users from "./components/Users";
+import UserData from "./components/UserData";
+import Orders from "./components/Orders";
+import AddProducts from "./components/AddProducts";
+import EditProducts from "./components/EditProducts";
+import ProductList from "./components/ProductLists";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -30,7 +27,7 @@ function App() {
     } else {
       setIsLogin(false);
     }
-  }, []); 
+  }, []);
 
   useEffect(() => {
     // Simulate loading
@@ -43,94 +40,196 @@ function App() {
 
   return (
     <BrowserRouter>
-    <Routes>
-    <>
-   { !isLogin ? <Route path="/" element= { <Login setIsLogin={setIsLogin} />}  /> :
+      <Routes>
+        <Route path="/" element={!isLogin ? <Login setIsLogin={setIsLogin} /> : <Navigate to="/dashboard" />} />
 
-<>
-   <Route path="/dashboard" element={ <div className='flex w-[100vw] h-[100vh] bg-slate-200 '>
-      
-      <Sidebar isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} setIsLogin={setIsLogin}/>
-      <div className="h-full w-full lg:w-[95%] ">
-        <div className={`${isMobileMenuOpen ? "block" : "hidden"} bg-black  opacity-40 absolute h-full w-full z-40`} onClick={()=>{setIsMobileMenuOpen(false)}}></div>
-        <Navbar setIsMobileMenuOpen={setIsMobileMenuOpen}/>
-        <div className=""><Dashboard/></div>
-        
-      </div>
-      
-    </div> }/>
-    <Route path="/users" element={<div className='flex w-[100vw] h-[100vh] bg-slate-200 '>
-      
-      <Sidebar isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} setIsLogin={setIsLogin}/>
-      <div className="h-full w-full lg:w-[95%] ">
-        <div className={`${isMobileMenuOpen ? "block" : "hidden"} bg-black  opacity-40 absolute h-full w-full z-40`} onClick={()=>{setIsMobileMenuOpen(false)}}></div>
-        <Navbar setIsMobileMenuOpen={setIsMobileMenuOpen}/>
-        <div className=""><Users/></div>
-        
-      </div>
-      
-    </div>} />
-    <Route path="/users/:id" element={<div className='flex w-[100vw] h-[100vh] bg-slate-200 '>
-      
-      <Sidebar isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} setIsLogin={setIsLogin}/>
-      <div className="h-full w-full lg:w-[95%] ">
-        <div className={`${isMobileMenuOpen ? "block" : "hidden"} bg-black  opacity-40 absolute h-full w-full z-40`} onClick={()=>{setIsMobileMenuOpen(false)}}></div>
-        <Navbar setIsMobileMenuOpen={setIsMobileMenuOpen}/>
-        <div className=""><UserData/></div>
-        
-      </div>
-      
-    </div>} />
-    <Route path="/orders" element={<div className='flex w-[100vw] h-[100vh] bg-slate-200 '>
-      
-      <Sidebar isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} setIsLogin={setIsLogin}/>
-      <div className="h-full w-full lg:w-[95%] ">
-        <div className={`${isMobileMenuOpen ? "block" : "hidden"} bg-black  opacity-40 absolute h-full w-full z-40`} onClick={()=>{setIsMobileMenuOpen(false)}}></div>
-        <Navbar setIsMobileMenuOpen={setIsMobileMenuOpen}/>
-        <div className=""><Orders/></div>
-        
-      </div>
-      
-    </div>} />
-    <Route path="/products/add" element={<div className='flex w-[100vw] h-[100vh] bg-slate-200 '>
-      
-      <Sidebar isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} setIsLogin={setIsLogin}/>
-      <div className="h-full w-full lg:w-[95%] ">
-        <div className={`${isMobileMenuOpen ? "block" : "hidden"} bg-black  opacity-40 absolute h-full w-full z-40`} onClick={()=>{setIsMobileMenuOpen(false)}}></div>
-        <Navbar setIsMobileMenuOpen={setIsMobileMenuOpen}/>
-        <div className=""><AddProducts/></div>
-        
-      </div>
-      
-    </div>} />
-    <Route path="/products/edit/:id" element={<div className='flex w-[100vw] h-[100vh] bg-slate-200 '>
-      
-      <Sidebar isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} setIsLogin={setIsLogin}/>
-      <div className="h-full w-full lg:w-[95%] ">
-        <div className={`${isMobileMenuOpen ? "block" : "hidden"} bg-black  opacity-40 absolute h-full w-full z-40`} onClick={()=>{setIsMobileMenuOpen(false)}}></div>
-        <Navbar setIsMobileMenuOpen={setIsMobileMenuOpen}/>
-        <div className=""><EditProducts/></div>
-        
-      </div>
-      
-    </div>} />
-    <Route path="/products/list" element={<div className='flex w-[100vw] h-[100vh] bg-slate-200 '>
-      
-      <Sidebar isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} setIsLogin={setIsLogin}/>
-      <div className="h-full w-full lg:w-[95%] ">
-        <div className={`${isMobileMenuOpen ? "block" : "hidden"} bg-black  opacity-40 absolute h-full w-full z-40`} onClick={()=>{setIsMobileMenuOpen(false)}}></div>
-        <Navbar setIsMobileMenuOpen={setIsMobileMenuOpen}/>
-        <div className=""><ProductList/></div>
-        
-      </div>
-      
-    </div>} /> </>}
-    
-   </>
-   </Routes>
-   </BrowserRouter>
-  )
+        <>
+          <Route
+            path="/dashboard"
+            element={  isLogin ?
+              <div className="flex w-[100vw] h-[100vh] bg-slate-200 ">
+                <Sidebar
+                  isMobileMenuOpen={isMobileMenuOpen}
+                  setIsMobileMenuOpen={setIsMobileMenuOpen}
+                  setIsLogin={setIsLogin}
+                />
+                <div className="h-full w-full lg:w-[95%] ">
+                  <div
+                    className={`${
+                      isMobileMenuOpen ? "block" : "hidden"
+                    } bg-black  opacity-40 absolute h-full w-full z-40`}
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                    }}
+                  ></div>
+                  <Navbar setIsMobileMenuOpen={setIsMobileMenuOpen} />
+                  <div className="">
+                    <Dashboard />
+                  </div>
+                </div>
+              </div>: <Navigate to="/" />
+            }
+          />
+          <Route
+            path="/users"
+            element={
+              <div className="flex w-[100vw] h-[100vh] bg-slate-200 ">
+                <Sidebar
+                  isMobileMenuOpen={isMobileMenuOpen}
+                  setIsMobileMenuOpen={setIsMobileMenuOpen}
+                  setIsLogin={setIsLogin}
+                />
+                <div className="h-full w-full lg:w-[95%] ">
+                  <div
+                    className={`${
+                      isMobileMenuOpen ? "block" : "hidden"
+                    } bg-black  opacity-40 absolute h-full w-full z-40`}
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                    }}
+                  ></div>
+                  <Navbar setIsMobileMenuOpen={setIsMobileMenuOpen} />
+                  <div className="">
+                    <Users />
+                  </div>
+                </div>
+              </div>
+            }
+          />
+          <Route
+            path="/users/:id"
+            element={
+              <div className="flex w-[100vw] h-[100vh] bg-slate-200 ">
+                <Sidebar
+                  isMobileMenuOpen={isMobileMenuOpen}
+                  setIsMobileMenuOpen={setIsMobileMenuOpen}
+                  setIsLogin={setIsLogin}
+                />
+                <div className="h-full w-full lg:w-[95%] ">
+                  <div
+                    className={`${
+                      isMobileMenuOpen ? "block" : "hidden"
+                    } bg-black  opacity-40 absolute h-full w-full z-40`}
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                    }}
+                  ></div>
+                  <Navbar setIsMobileMenuOpen={setIsMobileMenuOpen} />
+                  <div className="">
+                    <UserData />
+                  </div>
+                </div>
+              </div>
+            }
+          />
+          <Route
+            path="/orders"
+            element={
+              <div className="flex w-[100vw] h-[100vh] bg-slate-200 ">
+                <Sidebar
+                  isMobileMenuOpen={isMobileMenuOpen}
+                  setIsMobileMenuOpen={setIsMobileMenuOpen}
+                  setIsLogin={setIsLogin}
+                />
+                <div className="h-full w-full lg:w-[95%] ">
+                  <div
+                    className={`${
+                      isMobileMenuOpen ? "block" : "hidden"
+                    } bg-black  opacity-40 absolute h-full w-full z-40`}
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                    }}
+                  ></div>
+                  <Navbar setIsMobileMenuOpen={setIsMobileMenuOpen} />
+                  <div className="">
+                    <Orders />
+                  </div>
+                </div>
+              </div>
+            }
+          />
+          <Route
+            path="/products/add"
+            element={
+              <div className="flex w-[100vw] h-[100vh] bg-slate-200 ">
+                <Sidebar
+                  isMobileMenuOpen={isMobileMenuOpen}
+                  setIsMobileMenuOpen={setIsMobileMenuOpen}
+                  setIsLogin={setIsLogin}
+                />
+                <div className="h-full w-full lg:w-[95%] ">
+                  <div
+                    className={`${
+                      isMobileMenuOpen ? "block" : "hidden"
+                    } bg-black  opacity-40 absolute h-full w-full z-40`}
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                    }}
+                  ></div>
+                  <Navbar setIsMobileMenuOpen={setIsMobileMenuOpen} />
+                  <div className="">
+                    <AddProducts />
+                  </div>
+                </div>
+              </div>
+            }
+          />
+          <Route
+            path="/products/edit/:id"
+            element={
+              <div className="flex w-[100vw] h-[100vh] bg-slate-200 ">
+                <Sidebar
+                  isMobileMenuOpen={isMobileMenuOpen}
+                  setIsMobileMenuOpen={setIsMobileMenuOpen}
+                  setIsLogin={setIsLogin}
+                />
+                <div className="h-full w-full lg:w-[95%] ">
+                  <div
+                    className={`${
+                      isMobileMenuOpen ? "block" : "hidden"
+                    } bg-black  opacity-40 absolute h-full w-full z-40`}
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                    }}
+                  ></div>
+                  <Navbar setIsMobileMenuOpen={setIsMobileMenuOpen} />
+                  <div className="">
+                    <EditProducts />
+                  </div>
+                </div>
+              </div>
+            }
+          />
+          <Route
+            path="/products/list"
+            element={
+              <div className="flex w-[100vw] h-[100vh] bg-slate-200 ">
+                <Sidebar
+                  isMobileMenuOpen={isMobileMenuOpen}
+                  setIsMobileMenuOpen={setIsMobileMenuOpen}
+                  setIsLogin={setIsLogin}
+                />
+                <div className="h-full w-full lg:w-[95%] ">
+                  <div
+                    className={`${
+                      isMobileMenuOpen ? "block" : "hidden"
+                    } bg-black  opacity-40 absolute h-full w-full z-40`}
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                    }}
+                  ></div>
+                  <Navbar setIsMobileMenuOpen={setIsMobileMenuOpen} />
+                  <div className="">
+                    <ProductList />
+                  </div>
+                </div>
+              </div>
+            }
+          />{" "}
+        </>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-
-export default App
+export default App;
