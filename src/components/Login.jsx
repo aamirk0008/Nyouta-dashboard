@@ -3,7 +3,7 @@ import logo from "../assets/nyouta-logo2.png";
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 
-const AdminLogin = ({setIsLogin}) => {
+const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const route = useNavigate()
