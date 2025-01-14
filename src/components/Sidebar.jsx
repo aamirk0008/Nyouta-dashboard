@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo from "../assets/nyouta-logo2.png";
 
 
-const Sidebar = ( { isMobileMenuOpen, setIsMobileMenuOpen, setIsLogin  } ) => {
+const Sidebar = ( { isMobileMenuOpen, setIsMobileMenuOpen  } ) => {
     const location = useLocation();
     const route = useNavigate()
   const [isLogoutLoading, setIsLogoutLoading] = useState(false);
@@ -37,7 +37,6 @@ const Sidebar = ( { isMobileMenuOpen, setIsMobileMenuOpen, setIsLogin  } ) => {
     // Simulate logout process
     setTimeout(() => {
       setIsLogoutLoading(false);
-      setIsLogin(false)
       document.cookie = "token=; path=/; max-age=0";
       route("/")
       // Add actual logout logic here

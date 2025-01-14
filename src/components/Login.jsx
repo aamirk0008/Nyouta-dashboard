@@ -10,55 +10,36 @@ const AdminLogin = ({setIsLogin}) => {
   const handleLogin = async (e) => {
 
     e.preventDefault();
+    const adminCredentials = { emailorphone:email, password };
 
-    if(email === "admin@gmail.com" && password === "1234"){
-    document.cookie = "token=static-admin-token; path=/; max-age=3600"; // Expires in 1 hour
-    setIsLogin(true)
+    try {
+      const response = await fetch("http://localhost:5000/api/v1/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(adminCredentials),
+      });
+    
+      if (!response.ok) {
+        const errorData = await response.json();
+
+        throw new Error(errorData.message || "Login failed");
+      }
+    
+      const data = await response.json();
+      console.log("Login successful:", data);
+    
+      const token = data.token; 
+      document.cookie = `token=${token}; path=/; max-age=${60 * 60 * 24};`;  // Store the token in a cookie (expires in 1 day)
+      
       route("/dashboard")
-    }
-    else{
-      if(email !== "admin@gmail.com"){
-        toast.error("Wrong Email")
-      }
-      else{
-        toast.error("Wrong Password")
-      }
-    }
-   
+    } catch (err) {
+      console.log(err)
+      
+     
+    } 
     
-    
-
-    const handleGoogleLogin = () =>{
-
-    }
-
-    const adminCredentials = { email, password };
-
-    // try {
-    //   const response = await fetch("http://localhost:5000/api/v1/admin/login", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(adminCredentials),
-    //   });
-
-    //   if (!response.ok) {
-    //     const errorData = await response.json();
-    //     throw new Error(errorData.message || "Login failed");
-    //   }
-
-    //   const data = await response.json();
-    //   console.log("Login successful:", data);
-
-    //   // Handle success (e.g., save token, redirect to dashboard)
-    //   alert("Login successful!");
-    //   window.location.href = "/admin/dashboard"; // Replace with your admin dashboard route
-    // } catch (err) {
-    //   setError(err.message);
-    // } finally {
-    //   setLoading(false);
-    // }
   };
 
   return (

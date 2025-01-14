@@ -317,7 +317,6 @@ const AddProducts = () => {
   )
   
   const uploadImageUrl = await imageRes.json()
-  console.log(uploadImageUrl.secure_url);
   
   
     
@@ -334,42 +333,7 @@ const AddProducts = () => {
     };
     console.log("Product Data:", productData);
 
-  //   cloudinary.config({ 
-  //     cloud_name: 'dpesh4axn', 
-  //     api_key: '761654676877952', 
-  //     api_secret: '3Dr9xv2jnEOGZFWnvdmyElxJKV8' // Click 'View API Keys' above to copy your API secret
-  // });
 
-  // Upload an image
-  // const uploadResult = await cloudinary.uploader
-  // .upload(
-  //     images[0], {
-  //         public_id: 'shoes',
-  //     }
-  // )
-  // .catch((error) => {
-  //     console.log(error);
-  // });
-
-  // console.log("uploded result :", uploadResult);
-    
-  // Optimize delivery by resizing and applying auto-format and auto-quality
-  // const optimizeUrl = cloudinary.url('shoes', {
-  //     fetch_format: 'auto',
-  //     quality: 'auto'
-  // });
-
-  // console.log("optimizeUrl : ",optimizeUrl);
-    
-    // Transform the image: auto-crop to square aspect_ratio
-    // const autoCropUrl = cloudinary.url('shoes', {
-    //     crop: 'auto',
-    //     gravity: 'auto',
-    //     width: 500,
-    //     height: 500,
-    // });
-    
-    // console.log("autocrop:", autoCropUrl); 
 
     try {
       const response = await fetch("https://nyouta.onrender.com/api/v1/products/products", {

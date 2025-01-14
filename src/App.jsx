@@ -10,24 +10,13 @@ import Orders from "./components/Orders";
 import AddProducts from "./components/AddProducts";
 import EditProducts from "./components/EditProducts";
 import ProductList from "./components/ProductLists";
+import Middleware from "./middleware/middleware"
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
 
-  useEffect(() => {
-    const token = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("token="))
-      ?.split("=")[1];
-
-    if (token === "static-admin-token") {
-      setIsLogin(true);
-    } else {
-      setIsLogin(false);
-    }
-  }, []);
+ 
 
   useEffect(() => {
     // Simulate loading
@@ -40,18 +29,16 @@ function App() {
 
   return (
     <BrowserRouter>
+    
       <Routes>
-        <Route path="/" element={!isLogin ? <Login setIsLogin={setIsLogin} /> : <Navigate to="/dashboard" />} />
-
-        <>
+      <Route path="/" element={<Login />} />
           <Route
             path="/dashboard"
-            element={  isLogin ?
+            element={ <Middleware>
               <div className="flex w-[100vw] h-[100vh] bg-slate-200 ">
                 <Sidebar
                   isMobileMenuOpen={isMobileMenuOpen}
                   setIsMobileMenuOpen={setIsMobileMenuOpen}
-                  setIsLogin={setIsLogin}
                 />
                 <div className="h-full w-full lg:w-[95%] ">
                   <div
@@ -67,17 +54,18 @@ function App() {
                     <Dashboard />
                   </div>
                 </div>
-              </div>: <Navigate to="/" />
+              </div>
+              </Middleware>
             }
           />
           <Route
             path="/users"
             element={
+              <Middleware>
               <div className="flex w-[100vw] h-[100vh] bg-slate-200 ">
                 <Sidebar
                   isMobileMenuOpen={isMobileMenuOpen}
                   setIsMobileMenuOpen={setIsMobileMenuOpen}
-                  setIsLogin={setIsLogin}
                 />
                 <div className="h-full w-full lg:w-[95%] ">
                   <div
@@ -94,16 +82,17 @@ function App() {
                   </div>
                 </div>
               </div>
+              </Middleware>
             }
           />
           <Route
             path="/users/:id"
             element={
+              <Middleware>
               <div className="flex w-[100vw] h-[100vh] bg-slate-200 ">
                 <Sidebar
                   isMobileMenuOpen={isMobileMenuOpen}
                   setIsMobileMenuOpen={setIsMobileMenuOpen}
-                  setIsLogin={setIsLogin}
                 />
                 <div className="h-full w-full lg:w-[95%] ">
                   <div
@@ -120,16 +109,17 @@ function App() {
                   </div>
                 </div>
               </div>
+              </Middleware>
             }
           />
           <Route
             path="/orders"
             element={
+              <Middleware>
               <div className="flex w-[100vw] h-[100vh] bg-slate-200 ">
                 <Sidebar
                   isMobileMenuOpen={isMobileMenuOpen}
                   setIsMobileMenuOpen={setIsMobileMenuOpen}
-                  setIsLogin={setIsLogin}
                 />
                 <div className="h-full w-full lg:w-[95%] ">
                   <div
@@ -146,16 +136,17 @@ function App() {
                   </div>
                 </div>
               </div>
+              </Middleware>
             }
           />
           <Route
             path="/products/add"
             element={
+              <Middleware>
               <div className="flex w-[100vw] h-[100vh] bg-slate-200 ">
                 <Sidebar
                   isMobileMenuOpen={isMobileMenuOpen}
                   setIsMobileMenuOpen={setIsMobileMenuOpen}
-                  setIsLogin={setIsLogin}
                 />
                 <div className="h-full w-full lg:w-[95%] ">
                   <div
@@ -172,16 +163,17 @@ function App() {
                   </div>
                 </div>
               </div>
+              </Middleware>
             }
           />
           <Route
             path="/products/edit/:id"
             element={
+              <Middleware>
               <div className="flex w-[100vw] h-[100vh] bg-slate-200 ">
                 <Sidebar
                   isMobileMenuOpen={isMobileMenuOpen}
                   setIsMobileMenuOpen={setIsMobileMenuOpen}
-                  setIsLogin={setIsLogin}
                 />
                 <div className="h-full w-full lg:w-[95%] ">
                   <div
@@ -198,16 +190,17 @@ function App() {
                   </div>
                 </div>
               </div>
+              </Middleware>
             }
           />
           <Route
             path="/products/list"
             element={
+              <Middleware>
               <div className="flex w-[100vw] h-[100vh] bg-slate-200 ">
                 <Sidebar
                   isMobileMenuOpen={isMobileMenuOpen}
                   setIsMobileMenuOpen={setIsMobileMenuOpen}
-                  setIsLogin={setIsLogin}
                 />
                 <div className="h-full w-full lg:w-[95%] ">
                   <div
@@ -224,9 +217,9 @@ function App() {
                   </div>
                 </div>
               </div>
+              </Middleware>
             }
-          />{" "}
-        </>
+          />
       </Routes>
     </BrowserRouter>
   );
