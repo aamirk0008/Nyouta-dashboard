@@ -13,7 +13,7 @@ const AdminLogin = ({setIsLogin}) => {
     const adminCredentials = { emailorphone:email, password };
 
     try {
-      const response = await fetch("http://localhost:5000/api/v1/auth/login", {
+      const response = await fetch("https://nyouta.onrender.com/api/v1/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,7 +35,12 @@ const AdminLogin = ({setIsLogin}) => {
       
       route("/dashboard")
     } catch (err) {
-      console.log(err)
+      if(err.message == "User not found"){
+        toast.error("Wrong Email")
+      }
+      else{
+        toast.error("Wrong Password")
+      }
       
      
     } 
