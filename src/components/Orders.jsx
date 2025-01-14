@@ -7,11 +7,13 @@ const Orders = () => {
   const [orders, setOrders] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredOrders, setFilteredOrders] = useState(orders);
 
   useEffect(() => {
     const fetchAllOrders = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/v1/order/get-all-orders");
+        const response = await fetch("https://nyouta.onrender.com/api/v1/order/get-all-orders");
 
         if (!response.ok) {
           const errorData = await response.json();
@@ -20,6 +22,7 @@ const Orders = () => {
 
         const ordersData = await response.json();
         setOrders(ordersData);
+        setFilteredOrders(ordersData)
       } catch (err) {
         setError(err.message);
       } finally {
@@ -30,14 +33,35 @@ const Orders = () => {
     fetchAllOrders();
   }, []);
 
+
+  const handleSearch = (e) => {
+
+    
+    
+    const term = e.target.value.toLowerCase();
+    setSearchTerm(term);
+    const filtered = orders.filter((order) =>
+      order?.orderId?.toString().toLowerCase().includes(term)
+    );
+
+    console.log(filtered);
+    
+    setFilteredOrders(filtered);
+  };
+
+console.log(filteredOrders);
+
   if (loading) {
     return  (<div className="px-4 sm:px-8 py-4">
       <div className="bg-white rounded-lg overflow-hidden shadow-md">
-        <div className="flex sm:flex-row items-center  p-4">
+        <div className="flex sm:flex-row justify-between items-center  p-4">
           <h1 className="font-semibold text-lg text-gray-700 text-center sm:text-left font-avalonN">
             All Order List
           </h1>
-          
+          <div className="flex gap-6 items-center ">
+            
+            <div className='bg-gray-200 rounded-lg p-2 flex items-center'><span className='me-2 text-gray-500'><i class="fa-solid fa-magnifying-glass"></i></span><input type="text" onChange={(e)=>{handleSearch(e)}} className='bg-slate-200 text-gray-500 w-20 md:w-40 placeholder:text-gray-500 outline-none font-avalonB' placeholder='search...' /></div>
+        </div>
         </div>
         <div className="overflow-x-auto overflow-y-auto max-h-[650px] lg:max-h-[400px] no-scrollbar">
           <table className="w-full text-sm text-left text-gray-500">
@@ -178,11 +202,14 @@ const Orders = () => {
   return (
     <div className="px-4 sm:px-8 py-4">
       <div className="bg-white rounded-lg overflow-hidden shadow-md">
-        <div className="flex sm:flex-row items-center  p-4">
+        <div className="flex sm:flex-row justify-between items-center  p-4">
           <h1 className="font-semibold text-lg text-gray-700 text-center sm:text-left font-avalonN">
             All Order List
           </h1>
-          
+          <div className="flex gap-6 items-center ">
+            
+            <div className='bg-gray-200 rounded-lg p-2 flex items-center'><span className='me-2 text-gray-500'><i class="fa-solid fa-magnifying-glass"></i></span><input type="text" onChange={(e)=>{handleSearch(e)}} className='bg-slate-200 text-gray-500 w-20 md:w-40 placeholder:text-gray-500 outline-none font-avalonB' placeholder='search...' /></div>
+        </div>
         </div>
         <div className="overflow-x-auto overflow-y-auto max-h-[650px] lg:max-h-[400px] no-scrollbar">
           <table className="w-full text-sm text-left text-gray-500">
@@ -209,7 +236,7 @@ const Orders = () => {
               </tr>
             </thead>
             <tbody>
-              {orders.map((item, index) => (
+              {filteredOrders.map((item, index) => (
                 <tr
                   key={index}
                   className="bg-white border-b hover:bg-gray-50"

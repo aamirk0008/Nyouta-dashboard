@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ErrorComponent from './ErrorComponent';
+import { useNavigate } from 'react-router-dom';
+
 
   
 
@@ -13,12 +15,14 @@ const Users = () => {
   const[UserData, setUserData] = useState([{name:"", gender:"", role:"" , email:""}])
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredUsers, setFilteredUsers] = useState(UserData);
+  const route = useNavigate()  
 
  useEffect(() => {
   const fetchUserdata = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/v1/auth/getAllUsers', {
+      const response = await fetch('https://nyouta.onrender.com/api/v1/auth/getAllUsers', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -31,7 +35,8 @@ const Users = () => {
 
       const data = await response.json();
       console.log('Users:', data);
-      setUserData(data.users); // Assuming the API response has a `users` field
+      setUserData(data.users); 
+      setFilteredUsers(data.users)
     } catch (error) {
       setError(error.message)
       console.error('Error fetching users:', error.message);
@@ -44,16 +49,57 @@ const Users = () => {
   fetchUserdata(); // Call the function when the component mounts
 }, []); 
 
+//for by pass cors error
+const fetchImage = async (url) => {
+  try {
+    const response = await fetch(url);
+
+    // Check if the fetch request was successful
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    // Convert the response to a Blob (binary large object)
+    const blob = await response.blob();
+
+    // Create a local URL for the image Blob
+    const imageUrl = URL.createObjectURL(blob);
+
+    // Example: Setting the image as the src of an <img> element
+   return imageUrl
+    // Append the image to the body
+  } catch (error) {
+    console.error("Error fetching the image:", error);
+  }
+};
+// console.log(fetchImage("https://lh3.googleusercontent.com/a/ACg8ocK3jXBkiV3_H6jDquXaj4z2O_1QkLK7wGMQHzXHv_pl4vegyR0=s96-c"))
+
+const handleSearch = (e) => {
+  const term = e.target.value.toLowerCase();
+  setSearchTerm(term);
+  const filtered = UserData.filter((user) =>
+    user.name.toLowerCase().includes(term)
+  );
+  setFilteredUsers(filtered);
+};
+
+
+const UserDetailsHandler = (id) => {
+route(`/users/${id}`)
+}
 
 if (loading) {
 return (
   <div className="px-4 sm:px-8 py-4">
       <div className="bg-white rounded-lg overflow-hidden shadow-md">
-        <div className="flex sm:flex-row items-center  p-4">
+        <div className="flex sm:flex-row justify-between items-center  p-4">
           <h1 className="font-semibold text-lg text-gray-700 text-center sm:text-left font-avalonN">
             All User List
           </h1>
-          
+          <div className="flex gap-6 items-center ">
+            
+            <div className='bg-gray-200 rounded-lg p-2 flex items-center'><span className='me-2 text-gray-500'><i class="fa-solid fa-magnifying-glass"></i></span><input type="text"  className='bg-slate-200 text-gray-500 w-20 md:w-40 placeholder:text-gray-500 outline-none font-avalonB' placeholder='search...' /></div>
+        </div>
         </div>
         <div className="overflow-x-auto overflow-y-auto max-h-[650px] lg:max-h-[400px] no-scrollbar">
           <table className="w-full text-sm text-left text-gray-500">
@@ -172,11 +218,14 @@ if (error) {
   return (
     <div className="px-4 sm:px-8 py-4">
       <div className="bg-white rounded-lg overflow-hidden shadow-md">
-        <div className="flex sm:flex-row items-center  p-4">
+        <div className="flex sm:flex-row justify-between items-center  p-4">
           <h1 className="font-semibold text-lg text-gray-700 text-center sm:text-left font-avalonN">
             All User List
           </h1>
-          
+          <div className="flex gap-6 items-center ">
+            
+            <div className='bg-gray-200 rounded-lg p-2 flex items-center'><span className='me-2 text-gray-500'><i class="fa-solid fa-magnifying-glass"></i></span><input type="text"  onChange={(e)=>{handleSearch(e)}} className='bg-slate-200 text-gray-500 w-20 md:w-40 placeholder:text-gray-500 outline-none font-avalonB' placeholder='search...' /></div>
+        </div>
         </div>
         <div className="overflow-x-auto overflow-y-auto max-h-[650px] lg:max-h-[400px] no-scrollbar">
           <table className="w-full text-sm text-left text-gray-500">
@@ -203,10 +252,11 @@ if (error) {
               </tr>
             </thead>
             <tbody>
-              {UserData.map((item, index) => (
+              {filteredUsers.map((item, index) => (
                 <tr
                   key={index}
-                  className="bg-white border-b hover:bg-gray-50"
+                  className="bg-white border-b hover:bg-gray-50 cursor-pointer" 
+                  onClick={()=>{UserDetailsHandler(item._id)}}
                 >
                   <td
                     className="px-4 py-3 "

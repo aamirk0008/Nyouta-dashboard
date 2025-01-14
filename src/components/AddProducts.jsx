@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
-
+// import { v2 as cloudinary } from 'cloudinary';
 
 const data = {
   "Print Invitations": {
@@ -10,9 +10,9 @@ const data = {
       "Elegant Collection",
       "Vintage Collection",
       "Royal Invitations",
-      "Make Own Design Slider Invitations",
-      "Submit Design Idea Passport Theme Invitations",
-      "Send Ideal Design Newspaper Invitations",
+      "Slider Invitations",
+      "Passport Theme Invitations",
+      "Newspaper Invitations",
       "Aadhar Card Invitations",
       "ATM Theme Invitations",
     ],
@@ -34,9 +34,9 @@ const data = {
   "E-Invitations": {
     "Wedding Invitations": [
       "Pre Invitations - Manuhar",
-      "Make Own Design Save the Date",
-      "Submit Design Idea Wedding Invitations",
-      "Send Ideal Design Ceremony Invitations",
+      "Save the Date",
+      " Wedding Invitations",
+      " Ceremony Invitations",
       "Wedding Timeline",
       "Royal Collection - NEW",
     ],
@@ -55,8 +55,194 @@ const data = {
       "Opening Ceremony",
       "Kua Poojan",
     ],
+    "Short Invitations": ["FREE Wedding Invitations", "Party Invitations"],
+    "Matrimonial Biodata": ["Marriage Biodata"],
+  },
+  "Itinerary": {
+    "Wedding Itinerary": [
+      "Room Itinerary",
+      "Check-in Itinerary",
+      "Room Key Enevelop",
+      "Thank You Cards",
+      "Wedding Menu",
+      "Table Itinerary",
+      "Dining Table Mats",
+    ],
+    "Stickers": [
+      "Guest Name Stickers",
+      "Gift Box Sticker",
+      "Vehicle Stickers",
+      "Designer Stickers",
+      "Vintage Stickers",
+    ],
+    "Tags / Badges": [
+      "Luggage Tag",
+      "Door Handle Tag",
+      "Gift Tag",
+      "Parking Tags",
+      "Wedding Badges",
+    ],
+    "Welcome Signages": [
+      "Wedding Ceremony",
+      "Haldi Ceremony",
+      "Mehandi Ceremony",
+      "Sangeet Ceremony",
+      "Direction Signage",
+      "Engagement Ceremony",
+      "Anniversary Ceremony",
+      "Lohri Party",
+      "Halloween Party",
+      "Birthday Party",
+      "Celeration Party",
+    ],
+    "Accessories": [
+      "Party Dangler",
+      "Coasters",
+      "Paper Napkins",
+      "Event Banner",
+      "Face Mask",
+      "Funny Poster",
+    ],
+    "Games": ["Playing Cards", "Puzzle Games", "Fun Games"],
+  },
+  "Photo Books": {
+    "Soft Cover Photobook": [
+      "Wedding Photobook",
+      "Engagement Photobook",
+      "Anniversary Photobook",
+      "Birthday Photobook",
+    ],
+    "Hard Cover Photobook": [
+      "Wedding Photobook",
+      "Engagement Photobook",
+      "Anniversary Photobook",
+      "Birthday Photobook",
+    ],
+    "Spiral Photobook": [
+      "Wedding Photobook",
+      "Engagement Photobook",
+      "Anniversary Photobook",
+      "Birthday Photobook",
+    ],
+    "Photo Folder": [
+      "Wedding Photobook",
+      "Engagement Photobook",
+      "Anniversary Photobook",
+      "Birthday Photobook",
+    ],
+    "Digital Photobook": [
+      "Wedding Photobook",
+      "Engagement Photobook",
+      "Anniversary Photobook",
+      "Birthday Photobook",
+    ],
+  },
+  "Calendars 2025": {
+    "Mini Desktop Calendar": ["Wedding Calendar", "Birthday Calendar", "Family & Kids"],
+    "Wall Calendar - Portrait": [
+      "Wedding Calendar",
+      "Birthday Calendar",
+      "Family & Kids",
+    ],
+    "Wall Calendar - Landscape": [
+      "Wedding Calendar",
+      "Birthday Calendar",
+      "Family & Kids",
+    ],
+    "Desktop Calendar": [
+      "Wedding Calendar",
+      "Birthday Calendar",
+      "Family & Kids",
+    ],
+    "Table Tent Calendar": [
+      "Wedding Calendar",
+      "Birthday Calendar",
+      "Family & Kids",
+    ],
+    "Poster Calendar": [
+      "Wedding Calendar",
+      "Birthday Calendar",
+      "Family & Kids",
+    ],
+  },
+  "Planner Books": {
+    "Planner Books": [
+      "Wedding Management",
+      "Guest Management",
+      "Wedding Notepad",
+      "Guest List Booklet - Best Seller",
+    ],
+    "Free Printable": [
+      "Wedding Guest List-PDF",
+      "Wedding Guest List - XLS",
+      "Wedding Notepad - PDF",
+    ],
+  },
+  "Guest Surprising !!!": {
+    "Newspapers": [
+      "Wedding Newspaper",
+      "Engagement Newspaper",
+      "Birthday Newspaper",
+      "Special Event",
+      "E-Paper",
+    ],
+    "Magazine": [
+      "Wedding Magazine",
+      "Engagement Magazine",
+      "Birthday Magazine",
+      "Special Event",
+      "E-Magazine",
+    ],
+  },
+  "Free Greetings": {
+    "Wishes Greeting": [
+      "Wishes to New Wed",
+      "Engagement Wishes",
+      "Anniversary Wishes",
+      "Birthday Wishes",
+      "Retirement Wishes",
+      "General Wishes",
+    ],
+    "Thanks Greeting": [
+      "Thanks to Invitor",
+      "Thanks to Guests",
+      "Thanks for Wishes",
+      "General Greetings",
+    ],
+    "Feeling Greetings": [
+      "Love Cards",
+      "Sorry Cards",
+      "Congrats Cards",
+      "Miss you Card",
+      "Good Luck Cards",
+    ],
+    "Funny Greetings": [
+      "For Wedding",
+      "For Anniversary",
+      "For Party",
+      "General Greetings",
+    ],
+  },
+  "E-Shop": {
+    "Shagun Envelop": ["For Wedding Guests", "For New Wed"],
+    "Photo Magnet": [
+      "Mini Photo Magnet",
+      "Wedding",
+      "Family",
+      "Birthday",
+      "Quotes",
+      "Travel",
+      "Faces",
+      "Funny",
+      "Religious",
+      "Feeling",
+      "Rangoli",
+    ],
+    "Gifts": ["Wedding Gift", "Party Gift", "Packaging"],
+    "Essentials": ["Wedding Shopping", "Party Shopping"],
   },
 };
+
 
 const AddProducts = () => {
   const [selectedOptions, setSelectedOptions] = useState([]);
@@ -70,36 +256,12 @@ const AddProducts = () => {
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState("");
   const [images, setImages] = useState([]);
+  const [normalImages, setNormalImages] = useState();
+
+
   const route = useNavigate()
 
-//  useEffect(() => {
-//   const fetchProductdata = async () => {
-//     try {
-//       const response = await fetch('http://localhost:5000/api/v1/products/products', {
-//         method: 'GET',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//       });
 
-//       if (!response.ok) {
-//         throw new Error(`Error: ${response.status} - ${response.statusText}`);
-//       }
-
-//       const data = await response.json();
-//       setProductData(data);
-//     } catch (error) {
-//       console.error('Error fetching users:', error.message);
-//     }
-//   };
-
-//   fetchProductdata(); 
-//   }, []);
-
-  // const handleFileSelect = (event) => {
-  //   const files = Array.from(event.target.files);
-  //   setImages((prevImages) => [...prevImages, ...files]);
-  // };
 
   const handleCategoryChange = (e) => {
     const category = e.target.value;
@@ -124,6 +286,7 @@ const AddProducts = () => {
   };
 
   const handleAddImages = (files) => {
+    setNormalImages(files)
     if (files) {
       const previewLinks = Array.from(files).map((file) => URL.createObjectURL(file));
       setImages((prevImages) => [...prevImages, ...previewLinks]);
@@ -134,8 +297,29 @@ const AddProducts = () => {
     setImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
 
+
+
+
   const handleCreateProduct = async(e) => {
     e.preventDefault();
+
+  console.log(normalImages);
+  
+  const imagedata = new FormData();
+  imagedata.append("file" , normalImages[0]);
+  imagedata.append("upload_preset", "my_new_account" );
+  imagedata.append("cloud_name", "dpesh4axn")
+
+  const  imageRes = await fetch("https://api.cloudinary.com/v1_1/dpesh4axn/image/upload",{
+    method:"POST",
+    body:imagedata
+  }
+  )
+  
+  const uploadImageUrl = await imageRes.json()
+  
+  
+    
     const productData = {
       name : productName,
       id: ProductData.length + 1,
@@ -145,12 +329,14 @@ const AddProducts = () => {
       category: selectedCategory,
       subCategory: selectedSubcategory,
       subSubCategory: selectedSubSubcategories ? selectedSubSubcategories  : "",
-      image: images // for testing use "https://vestirio.com/cdn/shop/files/007.webp?v=1690795694&width=1800"
+      image: uploadImageUrl.secure_url // for testing use "https://vestirio.com/cdn/shop/files/007.webp?v=1690795694&width=1800"
     };
     console.log("Product Data:", productData);
 
+
+
     try {
-      const response = await fetch("http://localhost:5000/api/v1/products/products", {
+      const response = await fetch("https://nyouta.onrender.com/api/v1/products/products", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -169,6 +355,7 @@ const AddProducts = () => {
         setSelectedCategory("");
         setSelectedSubcategory("");
         setSelectedSubSubcategories("");
+        setImages([])
 
       } else {
         console.error("Failed to create product. Status:", response.status);
@@ -234,7 +421,7 @@ const AddProducts = () => {
                   onClick={() => handleRemoveNewImage(index)}
                   className="cut-button absolute bg-red-500 cursor-pointer   h-4 w-4 right-0 translate-x-1 -translate-y-1 flex justify-center items-center rounded-full"
                 >
-                 <i class="fa-solid fa-xmark text-white text-sm"></i>
+                 <i className="fa-solid fa-xmark text-white text-sm"></i>
                 </button>
                 <img
                   src={file}
