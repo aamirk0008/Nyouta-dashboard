@@ -23,7 +23,7 @@ export default function UserData() {
     },
   ]);
   const [cartData, setCartData] = useState({
-    cart: { products: [{ productId: { name: "" } }] },
+    cart: { products: [{ productId: { name: "" , image:[], price:''} }] },
   });
   console.log(userid.id);
 
@@ -268,11 +268,21 @@ export default function UserData() {
       <div className="w-full rounded-lg bg-white p-6 shadow-lg">
         <h1 className="font-semibold text-gray-800 text-xl mb-4">Cart</h1>
         <hr className="mb-4" />
-
-        {cartData.cart && cartData.cart.products ? (
+          <div className="h-48 overflow-y-scroll flex flex-col w-full no-scrollbar gap-2">
+          {cartData.cart && cartData.cart.products ? (
           cartData.cart.products.map((product, index) => (
-            <div className="h-48" key={index}>
-              {product.productId.name}
+            <div className="" key={index}>
+              <div className="flex items-center gap-4 p-4 border rounded-lg shadow-sm bg-white hover:shadow-md">
+      <img
+        src={product.productId.image[0]}
+        alt="Product image"
+        className="w-16 h-16 object-cover rounded-md border"
+      />
+      <div className="flex flex-col">
+        <h3 className="text-lg font-medium text-gray-800">{product.productId.name}</h3>
+        <p className="text-gray-600 text-sm">${product.productId.price}</p>
+      </div>
+    </div>
             </div>
           ))
         ) : (
@@ -280,6 +290,8 @@ export default function UserData() {
             Your cart is currently empty.
           </div>
         )}
+          </div>
+        
       </div>
       <ToastContainer />
     </div>

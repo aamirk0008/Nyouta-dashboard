@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
-
+// import { v2 as cloudinary } from 'cloudinary';
 
 const data = {
   "Print Invitations": {
@@ -256,36 +256,12 @@ const AddProducts = () => {
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState("");
   const [images, setImages] = useState([]);
+  const [normalImages, setNormalImages] = useState();
+
+
   const route = useNavigate()
 
-//  useEffect(() => {
-//   const fetchProductdata = async () => {
-//     try {
-//       const response = await fetch('http://localhost:5000/api/v1/products/products', {
-//         method: 'GET',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//       });
 
-//       if (!response.ok) {
-//         throw new Error(`Error: ${response.status} - ${response.statusText}`);
-//       }
-
-//       const data = await response.json();
-//       setProductData(data);
-//     } catch (error) {
-//       console.error('Error fetching users:', error.message);
-//     }
-//   };
-
-//   fetchProductdata(); 
-//   }, []);
-
-  // const handleFileSelect = (event) => {
-  //   const files = Array.from(event.target.files);
-  //   setImages((prevImages) => [...prevImages, ...files]);
-  // };
 
   const handleCategoryChange = (e) => {
     const category = e.target.value;
@@ -310,6 +286,7 @@ const AddProducts = () => {
   };
 
   const handleAddImages = (files) => {
+    setNormalImages(files)
     if (files) {
       const previewLinks = Array.from(files).map((file) => URL.createObjectURL(file));
       setImages((prevImages) => [...prevImages, ...previewLinks]);
@@ -320,8 +297,30 @@ const AddProducts = () => {
     setImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
 
+
+
+
   const handleCreateProduct = async(e) => {
     e.preventDefault();
+
+  console.log(normalImages);
+  
+  const imagedata = new FormData();
+  imagedata.append("file" , normalImages[0]);
+  imagedata.append("upload_preset", "my_new_account" );
+  imagedata.append("cloud_name", "dpesh4axn")
+
+  const  imageRes = await fetch("https://api.cloudinary.com/v1_1/dpesh4axn/image/upload",{
+    method:"POST",
+    body:imagedata
+  }
+  )
+  
+  const uploadImageUrl = await imageRes.json()
+  console.log(uploadImageUrl.secure_url);
+  
+  
+    
     const productData = {
       name : productName,
       id: ProductData.length + 1,
@@ -331,9 +330,46 @@ const AddProducts = () => {
       category: selectedCategory,
       subCategory: selectedSubcategory,
       subSubCategory: selectedSubSubcategories ? selectedSubSubcategories  : "",
-      image: images // for testing use "https://vestirio.com/cdn/shop/files/007.webp?v=1690795694&width=1800"
+      image: uploadImageUrl.secure_url // for testing use "https://vestirio.com/cdn/shop/files/007.webp?v=1690795694&width=1800"
     };
     console.log("Product Data:", productData);
+
+  //   cloudinary.config({ 
+  //     cloud_name: 'dpesh4axn', 
+  //     api_key: '761654676877952', 
+  //     api_secret: '3Dr9xv2jnEOGZFWnvdmyElxJKV8' // Click 'View API Keys' above to copy your API secret
+  // });
+
+  // Upload an image
+  // const uploadResult = await cloudinary.uploader
+  // .upload(
+  //     images[0], {
+  //         public_id: 'shoes',
+  //     }
+  // )
+  // .catch((error) => {
+  //     console.log(error);
+  // });
+
+  // console.log("uploded result :", uploadResult);
+    
+  // Optimize delivery by resizing and applying auto-format and auto-quality
+  // const optimizeUrl = cloudinary.url('shoes', {
+  //     fetch_format: 'auto',
+  //     quality: 'auto'
+  // });
+
+  // console.log("optimizeUrl : ",optimizeUrl);
+    
+    // Transform the image: auto-crop to square aspect_ratio
+    // const autoCropUrl = cloudinary.url('shoes', {
+    //     crop: 'auto',
+    //     gravity: 'auto',
+    //     width: 500,
+    //     height: 500,
+    // });
+    
+    // console.log("autocrop:", autoCropUrl); 
 
     try {
       const response = await fetch("https://nyouta.onrender.com/api/v1/products/products", {
@@ -355,6 +391,7 @@ const AddProducts = () => {
         setSelectedCategory("");
         setSelectedSubcategory("");
         setSelectedSubSubcategories("");
+        setImages([])
 
       } else {
         console.error("Failed to create product. Status:", response.status);
@@ -420,7 +457,7 @@ const AddProducts = () => {
                   onClick={() => handleRemoveNewImage(index)}
                   className="cut-button absolute bg-red-500 cursor-pointer   h-4 w-4 right-0 translate-x-1 -translate-y-1 flex justify-center items-center rounded-full"
                 >
-                 <i class="fa-solid fa-xmark text-white text-sm"></i>
+                 <i className="fa-solid fa-xmark text-white text-sm"></i>
                 </button>
                 <img
                   src={file}
