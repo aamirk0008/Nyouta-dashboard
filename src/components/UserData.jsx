@@ -7,10 +7,7 @@ export default function UserData() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [data, setData] = useState({
-    user: { name: "", role: " ", gender: "", avatar: "" },
-  });
-  const [personalData, setPersonalData] = useState([
-    {
+    user: { name: "", role: " ", gender: "", avatar: "" , address:[ {
       firstName: "",
       lastName: "",
       streetName: "",
@@ -20,13 +17,9 @@ export default function UserData() {
       pincode: "",
       contactNo: "",
       email: "",
-    },
-  ]);
-  const [cartData, setCartData] = useState({
-    cart: { products: [{ productId: { name: "" , image:[], price:''} }] },
+    }]},
   });
-  console.log(userid.id);
-
+ 
   useEffect(() => {
     const fetchUserdata = async () => {
       try {
@@ -45,8 +38,22 @@ export default function UserData() {
         }
 
         const user = await response.json();
-        console.log("Users:", user);
-        setData(user);
+
+        
+        setData({
+          user: { name: user.user.name, role:user.user.role, gender: user.user.gender, avatar: user.user.avatar , address:[ {
+            firstName: "",
+            lastName: "",
+            streetName: "",
+            apartment: "",
+            city: "",
+            state: "",
+            pincode: "",
+            contactNo: "",
+            email: "",
+          }]},
+        });
+
       } catch (error) {
         setError(error.message);
         console.error("Error fetching users:", error.message);
@@ -58,84 +65,8 @@ export default function UserData() {
     fetchUserdata(); // Call the function when the component mounts
   }, []);
 
-  useEffect(() => {
-    const fetchUserAddressdata = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:5000/api/v1/address/get-addresses?userId=${userid.id}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status} - ${response.statusText}`);
-        }
-
-        const user = await response.json();
-        console.log("Users:", user);
-        if (!user || user.length === 0) {
-          setPersonalData([
-            {
-              firstName: "",
-              lastName: "",
-              streetName: "",
-              apartment: "",
-              city: "",
-              state: "",
-              pincode: "",
-              contactNo: "",
-              email: "",
-            },
-          ]); // Handle empty data gracefully
-        } else {
-          setPersonalData(user); // Normal case
-        }
-      } catch (error) {
-        setError(error.message);
-        console.error("Error fetching users:", error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUserAddressdata(); // Call the function when the component mounts
-  }, []);
-
-  useEffect(() => {
-    const fetchCartdata = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:5000/api/v1/cart/get-cart?userId=${userid.id}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status} - ${response.statusText}`);
-        }
-
-        const user = await response.json();
-        console.log("Users:", user);
-        setCartData(user);
-      } catch (error) {
-        setError(error.message);
-        console.error("Error fetching users:", error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCartdata(); // Call the function when the component mounts
-  }, []);
-
+  
+  
   return (
     <div className="px-4 sm:px-8 py-4  h-[800px] sm:h-[890px] lg:h-[540px] overflow-y-scroll no-scrollbar">
       <div className="w-full flex flex-col lg:flex-row gap-6 rounded-lg mb-6">
@@ -174,13 +105,13 @@ export default function UserData() {
             {[
               {
                 label: "First Name",
-                forCopy: personalData[0].firstName,
-                value: personalData[0].firstName || "---",
+                forCopy: data.user.address[0].firstName ,
+                value: data.user.address[0].firstName || "---",
               },
               {
                 label: "Last Name",
-                forCopy: personalData[0].lastName,
-                value: personalData[0].lastName || "---",
+                forCopy: data.user.address[0].lastName,
+                value: data.user.address[0].lastName || "---",
               },
               {
                 label: "Gender",
@@ -189,52 +120,52 @@ export default function UserData() {
               },
               {
                 label: "Street Name",
-                forCopy: personalData[0].streetName,
-                value: personalData?.[0]?.streetName
-                  ? `${personalData[0].streetName.slice(0, 20)}${
-                      personalData[0].streetName.length > 20 ? "..." : ""
+                forCopy: data.user.address[0].streetName,
+                value: data.user.address?.[0]?.streetName
+                  ? `${data.user.address[0].streetName.slice(0, 20)}${
+                      data.user.address[0].streetName.length > 20 ? "..." : ""
                     }`
                   : "----"
               },
               {
                 label: "Apartment",
-                forCopy: personalData?.[0]?.apartment || "----",
-                value: personalData?.[0]?.apartment
-                  ? `${personalData[0].apartment.slice(0, 20)}${
-                      personalData[0].apartment.length > 20 ? "..." : ""
+                forCopy: data.user.address?.[0]?.apartment || "----",
+                value: data.user.address?.[0]?.apartment
+                  ? `${data.user.address[0].apartment.slice(0, 20)}${
+                      data.user.address[0].apartment.length > 20 ? "..." : ""
                     }`
                   : "----"
               },
               {
                 label: "City",
-                forCopy: personalData[0].city,
-                value: personalData?.[0]?.city
-                  ? `${personalData[0].city.slice(0, 20)}${
-                      personalData[0].city.length > 20 ? "..." : ""
+                forCopy: data.user.address[0].city,
+                value: data.user.address?.[0]?.city
+                  ? `${data.user.address[0].city.slice(0, 20)}${
+                      data.user.address[0].city.length > 20 ? "..." : ""
                     }`
                   : "----"
               },
               {
                 label: "State",
-                forCopy: personalData[0].state,
-                value: personalData[0].state || "---",
+                forCopy: data.user.address[0].state,
+                value: data.user.address[0].state || "---",
               },
               {
                 label: "Pin Code",
-                forCopy: personalData[0].pincode,
-                value: personalData[0].pincode || "---",
+                forCopy: data.user.address[0].pincode,
+                value: data.user.address[0].pincode || "---",
               },
               {
                 label: "Contact No",
-                forCopy: personalData[0].contactNo,
-                value: personalData[0].contactNo || "---",
+                forCopy: data.user.address[0].contactNo,
+                value: data.user.address[0].contactNo || "---",
               },
               {
                 label: "Email",
-                forCopy: personalData[0].email,
-                value: personalData?.[0]?.email
-                  ? `${personalData[0].email.slice(0, 20)}${
-                      personalData[0].email.length > 20 ? "..." : ""
+                forCopy: data.user.address[0].email,
+                value: data.user.address?.[0]?.email
+                  ? `${data.user.address[0].email.slice(0, 20)}${
+                      data.user.address[0].email.length > 20 ? "..." : ""
                     }`
                   : "----"
               },
@@ -264,35 +195,6 @@ export default function UserData() {
         </div>
       </div>
 
-      {/* Cart Section */}
-      <div className="w-full rounded-lg bg-white p-6 shadow-lg">
-        <h1 className="font-semibold text-gray-800 text-xl mb-4">Cart</h1>
-        <hr className="mb-4" />
-          <div className="h-48 overflow-y-scroll flex flex-col w-full no-scrollbar gap-2">
-          {cartData.cart && cartData.cart.products ? (
-          cartData.cart.products.map((product, index) => (
-            <div className="" key={index}>
-              <div className="flex items-center gap-4 p-4 border rounded-lg shadow-sm bg-white hover:shadow-md">
-      <img
-        src={product.productId.image[0]}
-        alt="Product image"
-        className="w-16 h-16 object-cover rounded-md border"
-      />
-      <div className="flex flex-col">
-        <h3 className="text-lg font-medium text-gray-800">{product.productId.name}</h3>
-        <p className="text-gray-600 text-sm">${product.productId.price}</p>
-      </div>
-    </div>
-            </div>
-          ))
-        ) : (
-          <div className="text-gray-500 italic">
-            Your cart is currently empty.
-          </div>
-        )}
-          </div>
-        
-      </div>
       <ToastContainer />
     </div>
   );

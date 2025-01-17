@@ -22,7 +22,7 @@ const Users = () => {
  useEffect(() => {
   const fetchUserdata = async () => {
     try {
-      const response = await fetch('https://nyouta.onrender.com/api/v1/auth/getAllUsers', {
+      const response = await fetch('http://localhost:5000/api/v1/auth/getAllUsers', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

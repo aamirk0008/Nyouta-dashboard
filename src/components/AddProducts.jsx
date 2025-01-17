@@ -307,10 +307,10 @@ const AddProducts = () => {
   
   const imagedata = new FormData();
   imagedata.append("file" , normalImages[0]);
-  imagedata.append("upload_preset", "my_new_account" );
-  imagedata.append("cloud_name", "dpesh4axn")
+  imagedata.append("upload_preset", "NYOUTA_WEBSITE" );
+  imagedata.append("cloud_name", "dybuuoqdo")
 
-  const  imageRes = await fetch("https://api.cloudinary.com/v1_1/dpesh4axn/image/upload",{
+  const  imageRes = await fetch("https://api.cloudinary.com/v1_1/dybuuoqdo/image/upload",{
     method:"POST",
     body:imagedata
   }
