@@ -70,14 +70,22 @@ const ProductList = () => {
     };
   
 
-  const handleSearch = (e) => {
-    const term = e.target.value.toLowerCase();
-    setSearchTerm(term);
-    const filtered = ProductData.filter((product) =>
-      product.name.toLowerCase().includes(term)
-    );
-    setFilteredProducts(filtered);
-  };
+    const handleSearch = (e) => {
+      const term = e.target.value.toLowerCase();
+      setSearchTerm(term);
+    
+      const filtered = ProductData.filter((product) => {
+        return (
+          product.name.toLowerCase().includes(term) ||
+          product.category?.toLowerCase().includes(term) ||
+          product.subCategory?.toLowerCase().includes(term) ||
+          product.subSubCategory?.toLowerCase().includes(term)
+        );
+      });
+    
+      setFilteredProducts(filtered);
+    };
+    
 
  const handleEdit = (id) => {
   console.log(id);

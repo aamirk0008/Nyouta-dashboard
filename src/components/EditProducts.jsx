@@ -169,7 +169,8 @@ const data = {
     "Planner Books": [
       "Wedding Management",
       "Guest Management",
-      "Wedding Notepad",
+      "Wedding Notepad(liner)",
+      "Wedding Notepad(photo)",
       "Guest List Booklet - Best Seller",
     ],
     "Free Printable": [
