@@ -13,7 +13,7 @@ const AdminLogin = () => {
     const adminCredentials = { emailorphone:email, password };
 
     try {
-      const response = await fetch("https://nyouta-vehl.onrender.com/api/v1/auth/login", {
+      const response = await fetch("https://nyouta.onrender.com/api/v1/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

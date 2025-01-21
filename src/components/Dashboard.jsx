@@ -17,7 +17,7 @@ const Dashboard = ({setIsMobileMenuOpen}) => {
     useEffect(() => {
        const fetchProductdata = async () => {
          try {
-           const response = await fetch('https://nyouta-vehl.onrender.com/api/v1/products/products', {
+           const response = await fetch('https://nyouta.onrender.com/api/v1/products/products', {
              method: 'GET',
              headers: {
                'Content-Type': 'application/json',

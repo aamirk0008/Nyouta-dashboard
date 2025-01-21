@@ -336,7 +336,7 @@ const AddProducts = () => {
 
 
     try {
-      const response = await fetch("https://nyouta-vehl.onrender.com/api/v1/products/products", {
+      const response = await fetch("https://nyouta.onrender.com/api/v1/products/products", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
