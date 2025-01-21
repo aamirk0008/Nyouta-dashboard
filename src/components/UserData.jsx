@@ -24,7 +24,7 @@ export default function UserData() {
     const fetchUserdata = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/v1/auth/getUser/${userid.id}`,
+          `https://nyouta-vehl.onrender.com/api/v1/auth/getUser/${userid.id}`,
           {
             method: "GET",
             headers: {

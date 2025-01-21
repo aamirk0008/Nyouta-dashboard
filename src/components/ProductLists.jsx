@@ -19,7 +19,7 @@ const ProductList = () => {
     const fetchProductdata = async () => {
       try {
         const response = await fetch(
-          "https://nyouta.onrender.com/api/v1/products/products",
+          "https://nyouta-vehl.onrender.com/api/v1/products/products",
           {
             method: "GET",
             headers: {
@@ -49,7 +49,7 @@ const ProductList = () => {
   const removeProduct = async (id) => {
     try {
       const response = await fetch(
-        `https://nyouta.onrender.com/api/v1/products/products/${id}`,
+        `https://nyouta-vehl.onrender.com/api/v1/products/products/${id}`,
         {
           method: "DELETE",
         }
