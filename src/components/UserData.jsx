@@ -20,15 +20,33 @@ export default function UserData() {
     }]},
   });
  
+
+
+
   useEffect(() => {
     const fetchUserdata = async () => {
+
+         // Function to get the token from cookies
+   const getCookie = (name) => {
+    const cookies = document.cookie.split('; ');
+    const tokenCookie = cookies.find(row => row.startsWith(`${name}=`));
+    return tokenCookie ? tokenCookie.split('=')[1] : null;
+  };  
+
+  const token = getCookie('token');
+  if (!token) {
+    console.error('Token not found in cookies');
+    return;
+  }
+
       try {
         const response = await fetch(
           `https://nyouta.onrender.com/api/v1/auth/getUser/${userid.id}`,
           {
             method: "GET",
             headers: {
-              "Content-Type": "application/json",
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json',
             },
           }
         );

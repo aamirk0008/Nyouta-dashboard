@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import ErrorComponent from './ErrorComponent';
 
+
 const data = {
   "Print Invitations": {
     "Wedding Invitations": [
@@ -270,6 +271,7 @@ const EditProducts = () => {
   const [error, setError] = useState(null);
   const route = useNavigate()
   const productId = useParams();
+  const [type, setType] = useState(""); 
 console.log(selectedOptions);
 
 
@@ -351,6 +353,7 @@ console.log(selectedOptions);
         setSelectedSubcategory(productData.subCategory)
         setSelectedSubSubcategories(productData.subSubCategory)
         setRemainingImages(productData.image || []);
+        setType(productData.type)
       } catch (error) {
         console.error("Error fetching product:", error.message);
         setError(error.message); // Display error to the user
@@ -382,26 +385,67 @@ console.log(selectedOptions);
     setNewImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
 
-  const handleCreateProduct = async(e) => {
+  const handleCreateProduct = async (e) => {
+    e.preventDefault();
+  
+    // Combine old and new images
     const combinedImages = [...newImages, ...remainingImages];
     setImages(combinedImages);
-    e.preventDefault();
+  
+    // Helper function to upload a single image to Cloudinary
+    const uploadToCloudinary = async (image) => {
+      const formData = new FormData();
+      formData.append("file", image);
+      formData.append("upload_preset", "NYOUTA_WEBSITE"); // Replace with your Cloudinary preset
+      formData.append("cloud_name", "dybuuoqdo"); // Replace with your Cloudinary cloud name
+  
+      try {
+        const response = await fetch("https://api.cloudinary.com/v1_1/dybuuoqdo/image/upload", {
+          method: "POST",
+          body: formData,
+        });
+        const data = await response.json();
+        return data.secure_url; // Cloudinary returns the secure URL of the uploaded image
+      } catch (error) {
+        console.error("Error uploading image to Cloudinary:", error.message);
+        throw new Error("Image upload failed");
+      }
+    };
+  
+    // Process images: Upload local images and include existing URLs as-is
+    const processedImages = await Promise.all(
+      combinedImages.map(async (image) => {
+        if (typeof image === "string" && image.startsWith("http")) {
+          // If the image is already a URL, include it as-is
+          return image;
+        } else {
+          // If the image is a local file, upload it to Cloudinary
+          const uploadedUrl = await uploadToCloudinary(image);
+          return uploadedUrl;
+        }
+      })
+    );
+  
+    // Create product data object
     const productData = {
-      name:productName,
+      name: productName,
       price,
       id: product.length + 1,
-      sku: product.sku, 
+      sku: product.sku,
       tags: selectedOptions.map((option) => option.value),
       category: selectedCategory,
       subCategory: selectedSubcategory,
-      subSubCategory: selectedSubSubcategories ? selectedSubSubcategories : "",
-      image: combinedImages,
+      subSubCategory: selectedSubSubcategories || "",
+      images: processedImages,
+      type:type
     };
+  
     console.log("Product Data:", productData);
-
+  
+    // Make the PUT request to update the product
     try {
       const response = await fetch(`https://nyouta.onrender.com/api/v1/products/products/${productId.id}`, {
-        method: "PUT", // Using PUT as it's an update operation
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
@@ -410,23 +454,26 @@ console.log(selectedOptions);
   
       if (!response.ok) {
         const errorData = await response.json();
-        toast.error("Failed to update product")
+        toast.error("Failed to update product");
         throw new Error(errorData.message || "Failed to update product");
       }
   
       const updatedProduct = await response.json();
       console.log("Updated Product:", updatedProduct);
-      toast.success("Product Updated")
+      toast.success("Product Updated");
       setTimeout(() => {
-        route("/products/list")
+        route("/products/list");
       }, 1000);
   
-      // Handle the updated product data as needed (e.g., updating state, displaying a success message, etc.)
     } catch (error) {
       console.error("Error updating product:", error.message);
-      toast.error("Error in Updating")
-      // Handle the error (e.g., show an error message to the user)
+      toast.error("Error in Updating");
     }
+  };
+  
+
+  const handleTypeChange = (event) => {
+    setType(event.target.value);
   };
 
    // Remove product function
@@ -752,6 +799,22 @@ console.log(selectedOptions);
                 ))}
               </select>
             </div>
+            <div className="flex flex-col flex-auto font-avalonN">
+              <label htmlFor="Type" className="">
+                Type
+              </label>
+              <select
+                id="Type"
+                className="border rounded-lg p-2 outline-none border-gray-300 hover:border-gray-400"
+                value={type}
+                onChange={handleTypeChange}
+              >
+                <option value="">Select Type</option>
+                  <option >Royal</option>
+                  <option >Popular</option>
+              </select>
+            </div>
+
           </div>
           <div className="flex justify-end gap-4">
             <button type="submit" className="py-2 px-4 rounded-lg text-white font-avalonB bg-[#FF6C2F]">

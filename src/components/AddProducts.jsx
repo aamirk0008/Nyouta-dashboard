@@ -257,6 +257,7 @@ const AddProducts = () => {
   const [price, setPrice] = useState("");
   const [images, setImages] = useState([]);
   const [normalImages, setNormalImages] = useState();
+  const [type, setType] = useState("");
 
 
   const route = useNavigate()
@@ -297,8 +298,9 @@ const AddProducts = () => {
     setImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
 
-
-
+  const handleTypeChange = (event) => {
+    setType(event.target.value);
+  };
 
   const handleCreateProduct = async(e) => {
     e.preventDefault();
@@ -329,8 +331,11 @@ const AddProducts = () => {
       category: selectedCategory,
       subCategory: selectedSubcategory,
       subSubCategory: selectedSubSubcategories ? selectedSubSubcategories  : "",
+      type:type,
       image: uploadImageUrl.secure_url // for testing use "https://vestirio.com/cdn/shop/files/007.webp?v=1690795694&width=1800"
     };
+
+   
     console.log("Product Data:", productData);
 
 
@@ -525,7 +530,7 @@ const AddProducts = () => {
                 ))}
               </select>
             </div>
-            <div className="flex flex-col font-avalonN">
+            <div className="flex flex-col flex-auto font-avalonN">
               <label htmlFor="subsubcategory" className="">
                 Sub-Subcategory
               </label>
@@ -544,6 +549,23 @@ const AddProducts = () => {
                 ))}
               </select>
             </div>
+            <div className="flex flex-col flex-auto font-avalonN">
+              <label htmlFor="Type" className="">
+                Type
+              </label>
+              <select
+                id="Type"
+                className="border rounded-lg p-2 outline-none border-gray-300 hover:border-gray-400"
+                value={type}
+                onChange={handleTypeChange}
+              >
+                <option value="">Select Type</option>
+                  <option >Royal</option>
+                  <option >Popular</option>
+              </select>
+            </div>
+
+
           </div>
           <div className="flex justify-end gap-4 font-avalonB">
             <button
