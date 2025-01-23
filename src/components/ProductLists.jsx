@@ -78,7 +78,8 @@ const ProductList = () => {
           product.name.toLowerCase().includes(term) ||
           product.category?.toLowerCase().includes(term) ||
           product.subCategory?.toLowerCase().includes(term) ||
-          product.subSubCategory?.toLowerCase().includes(term)
+          product.subSubCategory?.toLowerCase().includes(term) || 
+          product.type?.toLowerCase().includes(term)
         );
       });
     
@@ -498,6 +499,9 @@ const ProductList = () => {
                   Stock
                 </th>
                 <th scope="col" className="px-4 py-3">
+                  Type
+                </th>
+                <th scope="col" className="px-4 py-3">
                   Category
                 </th>
                 <th scope="col" className="px-4 py-3">
@@ -529,6 +533,7 @@ const ProductList = () => {
                   </td>
                   <td className="px-4 py-3">{item.price}</td>
                   <td className="px-4 py-3">{item.tags}</td>
+                  <td className="px-4 py-3">{item.type}</td>
                   <td className="px-4 py-3">{item.category}</td>
                   <td className="px-4 py-3">{item.subCategory}</td>
                   <td className="px-4 py-3">{item.subSubCategory}</td>
