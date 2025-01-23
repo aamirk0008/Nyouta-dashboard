@@ -272,7 +272,6 @@ const EditProducts = () => {
   const route = useNavigate()
   const productId = useParams();
   const [type, setType] = useState(""); 
-console.log(selectedOptions);
 
 
   const handleCategoryChange = (e) => {
@@ -440,7 +439,7 @@ console.log(selectedOptions);
       type:type
     };
   
-    console.log("Product Data:", productData);
+    
   
     // Make the PUT request to update the product
     try {
@@ -459,7 +458,6 @@ console.log(selectedOptions);
       }
   
       const updatedProduct = await response.json();
-      console.log("Updated Product:", updatedProduct);
       toast.success("Product Updated");
       setTimeout(() => {
         route("/products/list");
@@ -611,8 +609,6 @@ console.log(selectedOptions);
       </div>
     );
   }
-
-  console.log(newImages);
 
   return (
     <div className="px-4 sm:px-8 py-1 sm:py-4  ">

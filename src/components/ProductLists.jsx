@@ -84,7 +84,11 @@ const ProductList = () => {
       });
     
       setFilteredProducts(filtered);
+      console.log("filtered products: " ,filtered);
     };
+    
+
+   
     
 
   const handleEdit = (id) => {

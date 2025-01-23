@@ -305,7 +305,7 @@ const AddProducts = () => {
   const handleCreateProduct = async(e) => {
     e.preventDefault();
 
-  console.log(normalImages);
+
   
   const imagedata = new FormData();
   imagedata.append("file" , normalImages[0]);
