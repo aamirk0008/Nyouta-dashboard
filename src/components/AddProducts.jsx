@@ -360,6 +360,7 @@ const AddProducts = () => {
         setSelectedCategory("");
         setSelectedSubcategory("");
         setSelectedSubSubcategories("");
+        setType("")
         setImages([])
 
       } else {
